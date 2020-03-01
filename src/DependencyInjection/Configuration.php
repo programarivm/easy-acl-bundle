@@ -14,8 +14,9 @@ class Configuration implements ConfigurationInterface
         $treeBuilder
             ->getRootNode()
                 ->children()
-                    ->booleanNode('unicorns_are_real')->defaultTrue()->info('Whether or not you believe in unicorns')->end()
-                    ->integerNode('min_sunshine')->defaultValue(3)->info('How much do you like sunshine?')->end()
+                    ->scalarNode('name')->defaultValue('programarivm')->info('Planet name')->end()
+                    ->booleanNode('is_exoplanet')->defaultTrue()->info('Is this an exoplanet?')->end()
+                    ->integerNode('satellites')->defaultValue(3)->info('Number of satellites')->end()
                 ->end()
         ;
 

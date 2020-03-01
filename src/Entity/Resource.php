@@ -5,7 +5,7 @@ namespace Programarivm\EasyAclBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ResourceRepository")
+ * @ORM\Entity(repositoryClass="Programarivm\EasyAclBundle\Repository\ResourceRepository")
  */
 class Resource
 {
