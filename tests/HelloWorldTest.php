@@ -2,17 +2,17 @@
 
 namespace Programarivm\EasyAclBundle\Tests;
 
-use Programarivm\EasyAclBundle\EasyAcl;
+use Programarivm\EasyAclBundle\HelloWorld;
 use PHPUnit\Framework\TestCase;
 
-class EasyAclTest extends TestCase
+class HelloWorldTest extends TestCase
 {
     /**
      * @test
      */
     public function signal()
     {
-        $helloWorld = new EasyAcl([]);
+        $helloWorld = new HelloWorld([]);
 
         $this->assertStringStartsWith('Hello world!', $helloWorld->signal());
     }
