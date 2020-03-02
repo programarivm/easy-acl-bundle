@@ -33,9 +33,9 @@ class Role
     {
         return (object) [
             'type' => [
-                TYPE_ADMIN,
-                TYPE_BASIC,
-                TYPE_SUPERADMIN,
+                self::TYPE_ADMIN,
+                self::TYPE_BASIC,
+                self::TYPE_SUPERADMIN,
             ],
         ];
     }

@@ -10,7 +10,7 @@ class RoleTest extends TestCase
     /**
      * @test
      */
-    public function choices($type)
+    public function choices()
     {
         $expected = [
             Role::TYPE_ADMIN,
@@ -18,7 +18,7 @@ class RoleTest extends TestCase
             Role::TYPE_SUPERADMIN,
         ];
 
-        $actual = $role->getChoices()->type;
+        $actual = Role::getChoices()->type;
 
         $this->assertEquals($expected, $actual);
     }
