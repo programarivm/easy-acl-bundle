@@ -2,7 +2,9 @@
 
 namespace Programarivm\EasyAclBundle\Command;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Programarivm\EasyAclBundle\EasyAcl;
+use Programarivm\EasyAclBundle\Entity\Role;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -11,11 +13,14 @@ class SetupCommand extends Command
 {
     private $easyAcl;
 
+    private $em;
+
     protected static $defaultName = 'easy-acl:setup';
 
-    public function __construct(EasyAcl $easyAcl)
+    public function __construct(EasyAcl $easyAcl, EntityManagerInterface $em)
     {
         $this->easyAcl = $easyAcl;
+        $this->em = $em;
 
         parent::__construct();
     }
@@ -38,7 +43,17 @@ class SetupCommand extends Command
 
         $output->writeln('Hi there!');
 
-        // print_r($this->easyAcl->getRoles());
+        foreach ($this->easyAcl->getRoles() as $item) {
+            $role = (new Role())
+                ->setName($item['name'])
+                ->setHierarchy($item['hierarchy']);
+
+            $this->em->persist($role);
+        }
+
+        $this->em->flush();
+
+        // TODO ...
 
         return 0;
     }
