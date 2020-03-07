@@ -9,7 +9,24 @@ use Symfony\Component\Yaml\Yaml;
 
 class SetupCommand extends Command
 {
+    private $projectDir;
+
+    private $filepath;
+
+    private $config;
+
     protected static $defaultName = 'easy-acl:setup';
+
+    public function __construct(string $projectDir)
+    {
+        $this->projectDir = $projectDir;
+
+        $this->filepath = "{$this->projectDir}/config/packages/programarivm_easy_acl.yaml";
+
+        $this->config = current(Yaml::parseFile($this->filepath));
+
+        parent::__construct();
+    }
 
     protected function configure()
     {
