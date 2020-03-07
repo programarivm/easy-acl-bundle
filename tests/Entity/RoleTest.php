@@ -31,7 +31,7 @@ class RoleTest extends TestCase
     {
         $role = (new Role())
                     ->setType($type)
-                    ->setType($hierarchy);
+                    ->setHierarchy($hierarchy);
 
         $expected = [
             $type,
