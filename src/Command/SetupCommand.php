@@ -2,28 +2,20 @@
 
 namespace Programarivm\EasyAclBundle\Command;
 
+use Programarivm\EasyAclBundle\EasyAcl;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Yaml\Yaml;
 
 class SetupCommand extends Command
 {
-    private $projectDir;
-
-    private $filepath;
-
-    private $config;
+    private $easyAcl;
 
     protected static $defaultName = 'easy-acl:setup';
 
-    public function __construct(string $projectDir)
+    public function __construct(EasyAcl $easyAcl)
     {
-        $this->projectDir = $projectDir;
-
-        $this->filepath = "{$this->projectDir}/config/packages/programarivm_easy_acl.yaml";
-
-        $this->config = current(Yaml::parseFile($this->filepath));
+        $this->easyAcl = $easyAcl;
 
         parent::__construct();
     }
@@ -45,6 +37,8 @@ class SetupCommand extends Command
         ]);
 
         $output->writeln('Hi there!');
+
+        // print_r($this->easyAcl->getRoles());
 
         return 0;
     }

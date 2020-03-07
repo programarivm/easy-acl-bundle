@@ -23,8 +23,6 @@ programarivm_easy_acl:
 # config/services.yaml
 services:
     Programarivm\EasyAclBundle\Command\SetupCommand:
-        arguments:
-            $projectDir: '%kernel.project_dir%'
         tags: ['console.command']
 ```
 
