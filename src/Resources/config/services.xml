@@ -5,10 +5,10 @@
         http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="programarivm.easy_acl" class="Programarivm\EasyAclBundle\HelloWorld" public="true">
+        <service id="programarivm.easy_acl" class="Programarivm\EasyAclBundle\EasyAcl" public="true">
             <argument type="collection" />
         </service>
 
-        <service id="Programarivm\EasyAclBundle\HelloWorld" alias="programarivm.easy_acl" public="false" />
+        <service id="Programarivm\EasyAclBundle\EasyAcl" alias="programarivm.easy_acl" public="false" />
     </services>
 </container>

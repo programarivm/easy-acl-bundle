@@ -16,6 +16,9 @@ class ProgramarivmEasyAclExtension extends Extension
 
         $configuration = $this->getConfiguration($configs, $container);
         $config = $this->processConfiguration($configuration, $configs);
+
+        $definition = $container->getDefinition('programarivm.easy_acl');
+        $definition->setArgument(1, $config['roles']);
     }
 
     public function getAlias()
