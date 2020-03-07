@@ -20,7 +20,7 @@ class Role
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $type;
+    private $name;
 
     /**
      * @ORM\Column(type="smallint", options={"unsigned"=true})
@@ -32,14 +32,14 @@ class Role
         return $this->id;
     }
 
-    public function getType(): ?string
+    public function getName(): ?string
     {
-        return $this->type;
+        return $this->name;
     }
 
-    public function setType(string $type): self
+    public function setName(string $name): self
     {
-        $this->type = $type;
+        $this->name = $name;
 
         return $this;
     }

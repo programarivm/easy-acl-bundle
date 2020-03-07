@@ -24,20 +24,20 @@ class RoleTest extends WebTestCase
      * @dataProvider sampleData
      * @test
      */
-    public function setters_and_getters($type, $hierarchy)
+    public function setters_and_getters($name, $hierarchy)
     {
         foreach (self::$easyAcl->getRoles() as $item) {
             $role = (new Role())
-                ->setType($type)
+                ->setName($name)
                 ->setHierarchy($hierarchy);
 
             $expected = [
-                $type,
+                $name,
                 $hierarchy,
             ];
 
             $actual = [
-                $role->getType(),
+                $role->getName(),
                 $role->getHierarchy(),
             ];
 

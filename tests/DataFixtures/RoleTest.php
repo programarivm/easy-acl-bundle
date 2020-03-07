@@ -30,7 +30,7 @@ class RoleTest extends WebTestCase
     {
         foreach (self::$easyAcl->getRoles() as $item) {
             $role = (new Role())
-                ->setType($item['name'])
+                ->setName($item['name'])
                 ->setHierarchy($item['hierarchy']);
 
             self::$em->persist($role);
