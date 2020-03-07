@@ -16,11 +16,6 @@ class ProgramarivmEasyAclExtension extends Extension
 
         $configuration = $this->getConfiguration($configs, $container);
         $config = $this->processConfiguration($configuration, $configs);
-
-        $definition = $container->getDefinition('programarivm.easy_acl');
-        $definition->setArgument(1, $config['name']);
-        $definition->setArgument(2, $config['is_exoplanet']);
-        $definition->setArgument(3, $config['satellites']);
     }
 
     public function getAlias()

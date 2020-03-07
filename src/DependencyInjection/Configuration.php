@@ -14,9 +14,14 @@ class Configuration implements ConfigurationInterface
         $treeBuilder
             ->getRootNode()
                 ->children()
-                    ->scalarNode('name')->defaultValue('programarivm')->info('Planet name')->end()
-                    ->booleanNode('is_exoplanet')->defaultTrue()->info('Is this an exoplanet?')->end()
-                    ->integerNode('satellites')->defaultValue(3)->info('Number of satellites')->end()
+                    ->arrayNode('roles')
+                        ->arrayPrototype()
+                            ->children()
+                                ->integerNode('hierarchy')->end()
+                                ->scalarNode('name')->end()
+                            ->end()
+                        ->end()
+                    ->end()
                 ->end()
         ;
 
