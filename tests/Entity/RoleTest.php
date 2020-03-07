@@ -27,16 +27,20 @@ class RoleTest extends TestCase
      * @dataProvider sampleData
      * @test
      */
-    public function setters_and_getters($type)
+    public function setters_and_getters($type, $hierarchy)
     {
-        $role = (new Role())->setType($type);
+        $role = (new Role())
+                    ->setType($type)
+                    ->setType($hierarchy);
 
         $expected = [
             $type,
+            $hierarchy,
         ];
 
         $actual = [
             $role->getType(),
+            $role->getHierarchy(),
         ];
 
         $this->assertEquals($expected, $actual);
@@ -45,9 +49,9 @@ class RoleTest extends TestCase
     public function sampleData()
     {
         return [
-            [Role::TYPE_ADMIN],
-            [Role::TYPE_BASIC],
-            [Role::TYPE_SUPERADMIN],
+            [Role::TYPE_SUPERADMIN, 0],
+            [Role::TYPE_ADMIN, 1],
+            [Role::TYPE_BASIC, 2],
         ];
     }
 }

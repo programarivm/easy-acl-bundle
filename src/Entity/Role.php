@@ -30,6 +30,11 @@ class Role
      */
     private $type;
 
+    /**
+     * @ORM\Column(type="smallint", options={"unsigned"=true})
+     */
+    private $hierarchy;
+
     public static function getChoices()
     {
         return (object) [
@@ -54,6 +59,18 @@ class Role
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getHierarchy(): ?int
+    {
+        return $this->hierarchy;
+    }
+
+    public function setHierarchy(int $hierarchy): self
+    {
+        $this->hierarchy = $hierarchy;
 
         return $this;
     }
