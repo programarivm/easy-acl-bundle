@@ -2,14 +2,14 @@
 
 namespace Programarivm\EasyAclBundle\Repository;
 
-use Programarivm\EasyAclBundle\Entity\Resource;
+use Programarivm\EasyAclBundle\Entity\Route;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
-class ResourceRepository extends ServiceEntityRepository
+class RouteRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Resource::class);
+        parent::__construct($registry, Route::class);
     }
 }

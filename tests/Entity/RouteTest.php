@@ -3,10 +3,10 @@
 namespace Programarivm\EasyAclBundle\Tests\Entity;
 
 use Programarivm\EasyAclBundle\EasyAcl;
-use Programarivm\EasyAclBundle\Entity\Resource;
+use Programarivm\EasyAclBundle\Entity\Route;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class ResourceTest extends WebTestCase
+class RouteTest extends WebTestCase
 {
     private static $easyAcl;
 
@@ -26,11 +26,11 @@ class ResourceTest extends WebTestCase
      */
     public function setters_and_getters($name, $method, $path)
     {
-        foreach (self::$easyAcl->getResources() as $item) {
-            $resource = (new Resource())
-                            ->setName($name)
-                            ->setMethod($method)
-                            ->setPath($path);
+        foreach (self::$easyAcl->getRoutes() as $item) {
+            $route = (new Route())
+                        ->setName($name)
+                        ->setMethod($method)
+                        ->setPath($path);
 
             $expected = [
                 $name,
@@ -39,9 +39,9 @@ class ResourceTest extends WebTestCase
             ];
 
             $actual = [
-                $resource->getName(),
-                $resource->getMethod(),
-                $resource->getPath(),
+                $route->getName(),
+                $route->getMethod(),
+                $route->getPath(),
             ];
 
             $this->assertEquals($expected, $actual);

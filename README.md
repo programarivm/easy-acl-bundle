@@ -17,6 +17,31 @@ programarivm_easy_acl:
     -
       hierarchy: 2
       name: Basic
+  routes:
+    -
+      name: homepage
+      method: ANY
+      path: /
+    -
+      name: contact
+      method: GET
+      path: /contact
+    -
+      name: contact_process
+      method: POST
+      path: /contact
+    -
+      name: article_show
+      method: ANY
+      path: /articles/{_locale}/{year}/{title}.{_format}
+    -
+      name: blog
+      method: ANY
+      path: /blog/{page}
+    -
+      name: blog_show
+      method: ANY
+      path: /blog/{slug}
 ```
 
 ```yaml

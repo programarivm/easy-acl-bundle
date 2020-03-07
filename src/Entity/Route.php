@@ -5,10 +5,10 @@ namespace Programarivm\EasyAclBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="Programarivm\EasyAclBundle\Repository\ResourceRepository")
- * @ORM\Table(name="easy_acl_resource")
+ * @ORM\Entity(repositoryClass="Programarivm\EasyAclBundle\Repository\RouteRepository")
+ * @ORM\Table(name="easy_acl_route")
  */
-class Resource
+class Route
 {
     /**
      * @ORM\Id()

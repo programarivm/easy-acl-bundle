@@ -22,7 +22,7 @@ class Configuration implements ConfigurationInterface
                             ->end()
                         ->end()
                     ->end()
-                    ->arrayNode('resources')
+                    ->arrayNode('routes')
                         ->arrayPrototype()
                             ->children()
                                 ->scalarNode('name')->end()
