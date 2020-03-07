@@ -36,7 +36,11 @@ class RoleTest extends WebTestCase
             self::$em->persist($role);
         }
 
-        self::$em->flush();
+        try {
+            self::$em->flush();
+        } catch (\Exception $e) {
+            $this->assertTrue(false);
+        }
 
         $this->assertTrue(true);
     }
