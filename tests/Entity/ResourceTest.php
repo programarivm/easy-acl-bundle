@@ -2,11 +2,24 @@
 
 namespace Programarivm\EasyAclBundle\Tests\Entity;
 
+use Programarivm\EasyAclBundle\EasyAcl;
 use Programarivm\EasyAclBundle\Entity\Resource;
-use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class ResourceTest extends TestCase
+class ResourceTest extends WebTestCase
 {
+    private static $easyAcl;
+
+    public static function setUpBeforeClass()
+    {
+        $kernel = static::createKernel();
+        $kernel->boot();
+
+        self::$container = $kernel->getContainer();
+
+        self::$easyAcl = self::$container->get('programarivm.easy_acl');
+    }
+    
     /**
      * @dataProvider sampleData
      * @test
