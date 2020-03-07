@@ -2,25 +2,22 @@
 
 namespace Programarivm\EasyAclBundle\Tests\Entity;
 
+use Programarivm\EasyAclBundle\EasyAcl;
 use Programarivm\EasyAclBundle\Entity\Role;
-use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class RoleTest extends TestCase
+class RoleTest extends WebTestCase
 {
-    /**
-     * @test
-     */
-    public function choices()
+    private static $easyAcl;
+
+    public static function setUpBeforeClass()
     {
-        $expected = [
-            Role::TYPE_ADMIN,
-            Role::TYPE_BASIC,
-            Role::TYPE_SUPERADMIN,
-        ];
+        $kernel = static::createKernel();
+        $kernel->boot();
 
-        $actual = Role::getChoices()->type;
+        self::$container = $kernel->getContainer();
 
-        $this->assertEquals($expected, $actual);
+        self::$easyAcl = self::$container->get('programarivm.easy_acl');
     }
 
     /**
@@ -29,29 +26,31 @@ class RoleTest extends TestCase
      */
     public function setters_and_getters($type, $hierarchy)
     {
-        $role = (new Role())
-                    ->setType($type)
-                    ->setHierarchy($hierarchy);
+        foreach (self::$easyAcl->getRoles() as $item) {
+            $role = (new Role())
+                ->setType($type)
+                ->setHierarchy($hierarchy);
 
-        $expected = [
-            $type,
-            $hierarchy,
-        ];
+            $expected = [
+                $type,
+                $hierarchy,
+            ];
 
-        $actual = [
-            $role->getType(),
-            $role->getHierarchy(),
-        ];
+            $actual = [
+                $role->getType(),
+                $role->getHierarchy(),
+            ];
 
-        $this->assertEquals($expected, $actual);
+            $this->assertEquals($expected, $actual);
+        }
     }
 
     public function sampleData()
     {
         return [
-            [Role::TYPE_SUPERADMIN, 0],
-            [Role::TYPE_ADMIN, 1],
-            [Role::TYPE_BASIC, 2],
+            ['Superadmin', 0],
+            ['Admin', 1],
+            ['Basic', 2],
         ];
     }
 }

@@ -10,14 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Role
 {
-    const TYPE_ADMIN = 'Admin';
-    const TYPE_BASIC = 'Basic';
-    const TYPE_SUPERADMIN = 'Superadmin';
-
-    // TODO:
-    // add common role types
-    // ...
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -34,17 +26,6 @@ class Role
      * @ORM\Column(type="smallint", options={"unsigned"=true})
      */
     private $hierarchy;
-
-    public static function getChoices()
-    {
-        return (object) [
-            'type' => [
-                self::TYPE_ADMIN,
-                self::TYPE_BASIC,
-                self::TYPE_SUPERADMIN,
-            ],
-        ];
-    }
 
     public function getId(): ?int
     {
