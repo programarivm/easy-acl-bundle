@@ -24,7 +24,7 @@ programarivm_easy_acl:
 services:
     Programarivm\EasyAclBundle\Command\SetupCommand:
         arguments:
-            $path: '%kernel.project_dir%'
+            $projectDir: '%kernel.project_dir%'
         tags: ['console.command']
 ```
 
