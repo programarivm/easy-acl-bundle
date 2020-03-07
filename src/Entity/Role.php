@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="Programarivm\EasyAclBundle\Repository\RoleRepository")
+ * @ORM\Table(name="easy_acl_role")
  */
 class Role
 {
