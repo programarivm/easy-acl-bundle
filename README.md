@@ -19,6 +19,13 @@ programarivm_easy_acl:
       name: Basic
 ```
 
+```yaml
+# config/services.yaml
+services:
+    Programarivm\EasyAclBundle\Command\SetupCommand:
+        tags: ['console.command']
+```
+
 ## To Do List
 
 - Continue developing the bundle
