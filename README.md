@@ -28,6 +28,10 @@ services:
         tags: ['console.command']
 ```
 
+Update your database schema:
+
+    php bin/console doctrine:schema:update --force
+
 ## To Do List
 
 - Continue developing the bundle
