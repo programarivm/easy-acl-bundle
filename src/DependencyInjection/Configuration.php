@@ -22,6 +22,15 @@ class Configuration implements ConfigurationInterface
                             ->end()
                         ->end()
                     ->end()
+                    ->arrayNode('resources')
+                        ->arrayPrototype()
+                            ->children()
+                                ->scalarNode('name')->end()
+                                ->scalarNode('method')->end()
+                                ->scalarNode('path')->end()
+                            ->end()
+                        ->end()
+                    ->end()
                 ->end()
         ;
 

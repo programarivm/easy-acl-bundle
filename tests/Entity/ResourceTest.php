@@ -19,31 +19,33 @@ class ResourceTest extends WebTestCase
 
         self::$easyAcl = self::$container->get('programarivm.easy_acl');
     }
-    
+
     /**
      * @dataProvider sampleData
      * @test
      */
     public function setters_and_getters($name, $method, $path)
     {
-        $resource = (new Resource())
-                        ->setName($name)
-                        ->setMethod($method)
-                        ->setPath($path);
+        foreach (self::$easyAcl->getResources() as $item) {
+            $resource = (new Resource())
+                            ->setName($name)
+                            ->setMethod($method)
+                            ->setPath($path);
 
-        $expected = [
-            $name,
-            $method,
-            $path,
-        ];
+            $expected = [
+                $name,
+                $method,
+                $path,
+            ];
 
-        $actual = [
-            $resource->getName(),
-            $resource->getMethod(),
-            $resource->getPath(),
-        ];
+            $actual = [
+                $resource->getName(),
+                $resource->getMethod(),
+                $resource->getPath(),
+            ];
 
-        $this->assertEquals($expected, $actual);
+            $this->assertEquals($expected, $actual);
+        }
     }
 
     public function sampleData()
