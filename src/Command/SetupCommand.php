@@ -15,12 +15,15 @@ class SetupCommand extends Command
 
     private $em;
 
+    private $projectDir;
+
     protected static $defaultName = 'easy-acl:setup';
 
-    public function __construct(EasyAcl $easyAcl, EntityManagerInterface $em)
+    public function __construct(string $projectDir, EasyAcl $easyAcl, EntityManagerInterface $em)
     {
         $this->easyAcl = $easyAcl;
         $this->em = $em;
+        $this->projectDir = $projectDir;
 
         parent::__construct();
     }

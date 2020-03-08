@@ -5,6 +5,28 @@
 ## Configuration
 
 ```yaml
+# config/routes.yaml
+api_post_show:
+    path:       /api/posts/{id}
+    controller: App\Controller\BlogApiController::show
+    methods:    GET|HEAD
+
+api_post_edit:
+    path:       /api/posts/{id}
+    controller: App\Controller\BlogApiController::edit
+    methods:    PUT
+```
+
+```yaml
+# config/services.yaml
+services:
+    Programarivm\EasyAclBundle\Command\SetupCommand:
+        arguments:
+            $projectDir: '%kernel.project_dir%'
+        tags: ['console.command']
+```
+
+```yaml
 # config/packages/programarivm_easy_acl.yaml
 programarivm_easy_acl:
   roles:
@@ -17,38 +39,6 @@ programarivm_easy_acl:
     -
       hierarchy: 2
       name: Basic
-  routes:
-    -
-      name: homepage
-      method: ANY
-      path: /
-    -
-      name: contact
-      method: GET
-      path: /contact
-    -
-      name: contact_process
-      method: POST
-      path: /contact
-    -
-      name: article_show
-      method: ANY
-      path: /articles/{_locale}/{year}/{title}.{_format}
-    -
-      name: blog
-      method: ANY
-      path: /blog/{page}
-    -
-      name: blog_show
-      method: ANY
-      path: /blog/{slug}
-```
-
-```yaml
-# config/services.yaml
-services:
-    Programarivm\EasyAclBundle\Command\SetupCommand:
-        tags: ['console.command']
 ```
 
 Update your database schema:
