@@ -9,6 +9,7 @@ use Programarivm\EasyAclBundle\Entity\Route;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Yaml\Yaml;
 
 class SetupCommand extends Command
@@ -37,19 +38,24 @@ class SetupCommand extends Command
     {
         $this
             ->setDescription('EasyACL setup.')
-            ->setHelp('This command sets up the ACL.')
+            ->setHelp('This command sets up the access control list.')
         ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln([
-            'ACL setup',
-            '=========',
-            '',
-        ]);
+        $helper = $this->getHelper('question');
+        $question = new ConfirmationQuestion(
+            'This will reset the ACL. Are you sure to continue? (y) ',
+            false,
+            '/^(y)/i'
+        );
 
-        $output->writeln('Hi there!');
+        if (!$helper->ask($input, $output, $question)) {
+            return 0;
+        }
+
+        // TODO: delete the existing acl records
 
         foreach ($this->easyAcl->getRoles() as $item) {
             $role = (new Role())
@@ -69,8 +75,6 @@ class SetupCommand extends Command
         }
 
         $this->em->flush();
-
-        // TODO ...
 
         return 0;
     }
