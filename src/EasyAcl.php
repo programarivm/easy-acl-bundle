@@ -21,9 +21,4 @@ class EasyAcl
     {
         return $this->roles;
     }
-
-    public function getRoutes()
-    {
-        return $this->routes;
-    }
 }
