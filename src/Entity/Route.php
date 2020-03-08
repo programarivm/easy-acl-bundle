@@ -25,7 +25,7 @@ class Route
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $method;
+    private $methods;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -49,14 +49,14 @@ class Route
         return $this;
     }
 
-    public function getMethod(): ?string
+    public function getMethods(): ?string
     {
-        return $this->method;
+        return $this->methods;
     }
 
-    public function setMethod(string $method): self
+    public function setMethods(string $methods): self
     {
-        $this->method = $method;
+        $this->methods = $methods;
 
         return $this;
     }

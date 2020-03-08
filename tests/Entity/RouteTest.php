@@ -2,61 +2,42 @@
 
 namespace Programarivm\EasyAclBundle\Tests\Entity;
 
-use Programarivm\EasyAclBundle\EasyAcl;
 use Programarivm\EasyAclBundle\Entity\Route;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class RouteTest extends WebTestCase
 {
-    private static $easyAcl;
-
-    public static function setUpBeforeClass()
-    {
-        $kernel = static::createKernel();
-        $kernel->boot();
-
-        self::$container = $kernel->getContainer();
-
-        self::$easyAcl = self::$container->get('programarivm.easy_acl');
-    }
-
     /**
      * @dataProvider sampleData
      * @test
      */
-    public function setters_and_getters($name, $method, $path)
+    public function setters_and_getters($name, $methods, $path)
     {
-        foreach (self::$easyAcl->getRoutes() as $item) {
-            $route = (new Route())
-                        ->setName($name)
-                        ->setMethod($method)
-                        ->setPath($path);
+        $route = (new Route())
+                    ->setName($name)
+                    ->setMethods($methods)
+                    ->setPath($path);
 
-            $expected = [
-                $name,
-                $method,
-                $path,
-            ];
+        $expected = [
+            $name,
+            $methods,
+            $path,
+        ];
 
-            $actual = [
-                $route->getName(),
-                $route->getMethod(),
-                $route->getPath(),
-            ];
+        $actual = [
+            $route->getName(),
+            $route->getMethods(),
+            $route->getPath(),
+        ];
 
-            $this->assertEquals($expected, $actual);
-        }
+        $this->assertEquals($expected, $actual);
     }
 
     public function sampleData()
     {
         return [
-            ['homepage', 'ANY', '/'],
-            ['contact', 'GET', '/contact'],
-            ['contact_process', 'POST', '/contact'],
-            ['article_show', 'ANY', '/articles/{_locale}/{year}/{title}.{_format}'],
-            ['blog', 'ANY', '/blog/{page}'],
-            ['blog_show', 'ANY', '/blog/{slug}'],
+            ['api_post_show', 'GET|HEAD', '/api/posts/{id}'],
+            ['api_post_edit', 'PUT', '/api/posts/{id}'],
         ];
     }
 }
