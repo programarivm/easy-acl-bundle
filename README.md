@@ -24,6 +24,11 @@ services:
         arguments:
             $projectDir: '%kernel.project_dir%'
         tags: ['console.command']
+
+    Programarivm\EasyAclBundle\Repository\:
+        resource: '../vendor/programarivm/easy-acl-bundle/src/Repository'
+        autowire: true
+        tags: ['doctrine.repository_service']
 ```
 
 ```yaml

@@ -12,4 +12,13 @@ class RouteRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Route::class);
     }
+
+    public function deleteAll()
+    {
+        $dql = 'DELETE FROM Programarivm\EasyAclBundle\Entity\Route';
+        $query = $this->getEntityManager()
+                    ->createQuery($dql);
+
+        return $query->execute();
+    }
 }

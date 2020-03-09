@@ -55,7 +55,8 @@ class SetupCommand extends Command
             return 0;
         }
 
-        // TODO: delete the existing acl records
+        $this->em->getRepository('EasyAclBundle:Role')->deleteAll();
+        $this->em->getRepository('EasyAclBundle:Route')->deleteAll();
 
         foreach ($this->easyAcl->getRoles() as $item) {
             $role = (new Role())
