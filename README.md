@@ -18,20 +18,6 @@ api_post_edit:
 ```
 
 ```yaml
-# config/services.yaml
-services:
-    Programarivm\EasyAclBundle\Command\SetupCommand:
-        arguments:
-            $projectDir: '%kernel.project_dir%'
-        tags: ['console.command']
-
-    Programarivm\EasyAclBundle\Repository\:
-        resource: '../vendor/programarivm/easy-acl-bundle/src/Repository'
-        autowire: true
-        tags: ['doctrine.repository_service']
-```
-
-```yaml
 # config/packages/programarivm_easy_acl.yaml
 programarivm_easy_acl:
   roles:
@@ -44,6 +30,20 @@ programarivm_easy_acl:
     -
       hierarchy: 2
       name: Basic
+```
+
+```yaml
+# config/services.yaml
+services:
+    Programarivm\EasyAclBundle\Command\SetupCommand:
+        arguments:
+            $projectDir: '%kernel.project_dir%'
+        tags: ['console.command']
+
+    Programarivm\EasyAclBundle\Repository\:
+        resource: '../vendor/programarivm/easy-acl-bundle/src/Repository'
+        autowire: true
+        tags: ['doctrine.repository_service']
 ```
 
 Update your database schema:
