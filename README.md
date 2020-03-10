@@ -30,6 +30,21 @@ programarivm_easy_acl:
     -
       hierarchy: 2
       name: Basic
+  access:
+    -
+      role: Superadmin
+      routes:
+        - api_post_show
+        - api_post_edit
+    -
+      role: Admin
+      routes:
+        - api_post_show
+        - api_post_edit
+    -
+      role: Basic
+      routes:
+        - api_post_show
 ```
 
 ```yaml

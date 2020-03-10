@@ -4,6 +4,7 @@ namespace Programarivm\EasyAclBundle\Command;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Programarivm\EasyAclBundle\EasyAcl;
+use Programarivm\EasyAclBundle\Entity\Access;
 use Programarivm\EasyAclBundle\Entity\Role;
 use Programarivm\EasyAclBundle\Entity\Route;
 use Symfony\Component\Console\Command\Command;
@@ -55,24 +56,35 @@ class SetupCommand extends Command
             return 0;
         }
 
+        $this->em->getRepository('EasyAclBundle:Access')->deleteAll();
         $this->em->getRepository('EasyAclBundle:Role')->deleteAll();
         $this->em->getRepository('EasyAclBundle:Route')->deleteAll();
 
-        foreach ($this->easyAcl->getRoles() as $item) {
-            $role = (new Role())
-                        ->setName($item['name'])
-                        ->setHierarchy($item['hierarchy']);
-
-            $this->em->persist($role);
+        foreach ($this->easyAcl->getRoles() as $role) {
+            $this->em->persist(
+                (new Role())
+                    ->setName($role['name'])
+                    ->setHierarchy($role['hierarchy'])
+            );
         }
 
-        foreach ($this->routes as $key => $val) {
-            $route = (new Route())
-                        ->setName($key)
-                        ->setMethods($val['methods'])
-                        ->setPath($val['path']);
+        foreach ($this->routes as $name => $val) {
+            $this->em->persist(
+                (new Route())
+                    ->setName($name)
+                    ->setMethods($val['methods'])
+                    ->setPath($val['path'])
+            );
+        }
 
-            $this->em->persist($route);
+        foreach ($this->easyAcl->getAccess() as $access) {
+            foreach ($access['routes'] as $route) {
+                $this->em->persist(
+                    (new Access())
+                        ->setRole($access['role'])
+                        ->setRoute($route)
+                );
+            }
         }
 
         $this->em->flush();

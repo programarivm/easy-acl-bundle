@@ -8,17 +8,22 @@ class EasyAcl
 
     private $roles;
 
-    private $routes;
+    private $access;
 
-    public function __construct(array $providers, array $roles = [], array $routes = [])
+    public function __construct(array $providers, array $roles = [], array $access = [])
     {
         $this->providers = $providers;
         $this->roles = $roles;
-        $this->routes = $routes;
+        $this->access = $access;
     }
 
     public function getRoles()
     {
         return $this->roles;
+    }
+
+    public function getAccess()
+    {
+        return $this->access;
     }
 }
