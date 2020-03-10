@@ -20,16 +20,6 @@ api_post_edit:
 ```yaml
 # config/packages/programarivm_easy_acl.yaml
 programarivm_easy_acl:
-  roles:
-    -
-      hierarchy: 0
-      name: Superadmin
-    -
-      hierarchy: 1
-      name: Admin
-    -
-      hierarchy: 2
-      name: Basic
   access:
     -
       role: Superadmin

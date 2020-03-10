@@ -11,31 +11,19 @@ class RoleTest extends WebTestCase
      * @dataProvider sampleData
      * @test
      */
-    public function setters_and_getters($name, $hierarchy)
+    public function setters_and_getters($name)
     {
-        $role = (new Role())
-                    ->setName($name)
-                    ->setHierarchy($hierarchy);
+        $role = (new Role())->setName($name);
 
-        $expected = [
-            $name,
-            $hierarchy,
-        ];
-
-        $actual = [
-            $role->getName(),
-            $role->getHierarchy(),
-        ];
-
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($name, $role->getName());
     }
 
     public function sampleData()
     {
         return [
-            ['Superadmin', 0],
-            ['Admin', 1],
-            ['Basic', 2],
+            ['Superadmin'],
+            ['Admin'],
+            ['Basic'],
         ];
     }
 }

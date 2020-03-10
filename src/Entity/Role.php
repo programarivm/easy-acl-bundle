@@ -22,11 +22,6 @@ class Role
      */
     private $name;
 
-    /**
-     * @ORM\Column(type="smallint", options={"unsigned"=true})
-     */
-    private $hierarchy;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -40,18 +35,6 @@ class Role
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getHierarchy(): ?int
-    {
-        return $this->hierarchy;
-    }
-
-    public function setHierarchy(int $hierarchy): self
-    {
-        $this->hierarchy = $hierarchy;
 
         return $this;
     }

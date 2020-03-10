@@ -29,9 +29,7 @@ class RoleTest extends WebTestCase
     public function load()
     {
         foreach (self::$easyAcl->getRoles() as $item) {
-            $role = (new Role())
-                ->setName($item['name'])
-                ->setHierarchy($item['hierarchy']);
+            $role = (new Role())->setName($item['name']);
 
             self::$em->persist($role);
         }
