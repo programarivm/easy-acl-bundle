@@ -3,10 +3,12 @@
 namespace Programarivm\EasyAclBundle\Tests\DataFixtures;
 
 use Programarivm\EasyAclBundle\EasyAcl;
+use Programarivm\EasyAclBundle\Entity\Access;
 use Programarivm\EasyAclBundle\Entity\Role;
+use Programarivm\EasyAclBundle\Entity\Route;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class RoleTest extends WebTestCase
+class EasyAclTest extends WebTestCase
 {
     private static $easyAcl;
 
@@ -28,18 +30,8 @@ class RoleTest extends WebTestCase
      */
     public function load()
     {
-        foreach (self::$easyAcl->getRoles() as $item) {
-            $role = (new Role())->setName($item['name']);
+        // TODO
 
-            self::$em->persist($role);
-        }
-
-        try {
-            self::$em->flush();
-        } catch (\Exception $e) {
-            $this->assertTrue(false);
-        }
-
-        $this->assertTrue(true);
+        $this->assertTrue(false);
     }
 }
