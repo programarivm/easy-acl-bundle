@@ -7,12 +7,15 @@ use Programarivm\EasyAclBundle\Entity\Access;
 use Programarivm\EasyAclBundle\Entity\Role;
 use Programarivm\EasyAclBundle\Entity\Route;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Yaml\Yaml;
 
 class EasyAclTest extends WebTestCase
 {
     private static $easyAcl;
 
     private static $em;
+
+    private static $routes;
 
     public static function setUpBeforeClass()
     {
@@ -23,6 +26,14 @@ class EasyAclTest extends WebTestCase
 
         self::$easyAcl = self::$container->get('programarivm.easy_acl');
         self::$em = self::$container->get('doctrine.orm.entity_manager');
+        self::$routes = Yaml::parseFile("{$kernel->getProjectDir()}/config/routes.yaml");
+    }
+
+    public static function tearDownAfterClass()
+    {
+        self::$em->getRepository('EasyAclBundle:Access')->deleteAll();
+        self::$em->getRepository('EasyAclBundle:Role')->deleteAll();
+        self::$em->getRepository('EasyAclBundle:Route')->deleteAll();
     }
 
     /**
@@ -30,8 +41,34 @@ class EasyAclTest extends WebTestCase
      */
     public function load()
     {
-        // TODO
+        foreach (self::$routes as $name => $item) {
+            self::$em->persist(
+                (new Route())
+                    ->setName($name)
+                    ->setMethods($item['methods'])
+                    ->setPath($item['path'])
+            );
+        }
 
-        $this->assertTrue(false);
+        foreach (self::$easyAcl->getAccess() as $access) {
+            self::$em->persist(
+                (new Role())->setName($access['role'])
+            );
+            foreach ($access['routes'] as $route) {
+                self::$em->persist(
+                    (new Access())
+                        ->setRole($access['role'])
+                        ->setRoute($route)
+                );
+            }
+        }
+
+        try {
+            self::$em->flush();
+        } catch (\Exception $e) {
+            $this->assertTrue(false);
+        }
+
+        $this->assertTrue(true);
     }
 }
