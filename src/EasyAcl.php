@@ -15,12 +15,13 @@ class EasyAcl
         $this->providers = $providers;
         $this->roles = [];
         $this->access = $access;
+        foreach ($this->access as $item) {
+            $this->roles[] = $item['role'];
+        }
     }
 
     public function getRoles()
     {
-        // TODO
-
         return $this->roles;
     }
 
