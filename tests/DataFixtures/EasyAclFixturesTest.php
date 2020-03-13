@@ -9,7 +9,7 @@ use Programarivm\EasyAclBundle\Entity\Route;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Yaml\Yaml;
 
-class EasyAclTest extends WebTestCase
+class EasyAclFixturesTest extends WebTestCase
 {
     private static $easyAcl;
 
