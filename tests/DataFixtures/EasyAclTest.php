@@ -17,6 +17,15 @@ class EasyAclTest extends WebTestCase
 
     private static $routes;
 
+    public function __construct()
+    {
+        if ($_ENV['APP_ENV'] !== 'test') {
+            throw new \DomainException('Whoops! The data fixtures can only be loaded in a testing environment.');
+        }
+
+        parent::__construct();
+    }
+
     public static function setUpBeforeClass()
     {
         $kernel = static::createKernel();
@@ -70,5 +79,27 @@ class EasyAclTest extends WebTestCase
         }
 
         $this->assertTrue(true);
+    }
+
+    /**
+     * @test
+     * @depends load
+     */
+    public function is_not_allowed()
+    {
+        $isAllowed = self::$em->getRepository('EasyAclBundle:Access')->isAllowed('foo', 'bar');
+
+        $this->assertFalse($isAllowed);
+    }
+
+    /**
+     * @test
+     * @depends load
+     */
+    public function is_allowed()
+    {
+        $isAllowed = self::$em->getRepository('EasyAclBundle:Access')->isAllowed('Superadmin', 'api_post_show');
+
+        $this->assertTrue($isAllowed);
     }
 }
