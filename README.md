@@ -20,7 +20,7 @@ api_post_edit:
 ```yaml
 # config/packages/programarivm_easy_acl.yaml
 programarivm_easy_acl:
-  access:
+  permission:
     -
       role: Superadmin
       routes:

@@ -25,7 +25,7 @@ class EasyAcl
         return $this->roles;
     }
 
-    public function getAccess()
+    public function getPermission()
     {
         return $this->access;
     }

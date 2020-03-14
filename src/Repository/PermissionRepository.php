@@ -2,15 +2,15 @@
 
 namespace Programarivm\EasyAclBundle\Repository;
 
-use Programarivm\EasyAclBundle\Entity\Access;
+use Programarivm\EasyAclBundle\Entity\Permission;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
-class AccessRepository extends ServiceEntityRepository
+class PermissionRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Access::class);
+        parent::__construct($registry, Permission::class);
     }
 
     public function isAllowed(string $role, string $route): ?bool
@@ -31,7 +31,7 @@ class AccessRepository extends ServiceEntityRepository
 
     public function deleteAll()
     {
-        $dql = 'DELETE FROM Programarivm\EasyAclBundle\Entity\Access';
+        $dql = 'DELETE FROM Programarivm\EasyAclBundle\Entity\Permission';
         $query = $this->getEntityManager()
                     ->createQuery($dql);
 

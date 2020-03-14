@@ -4,7 +4,7 @@ namespace Programarivm\EasyAclBundle\Command;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Programarivm\EasyAclBundle\EasyAcl;
-use Programarivm\EasyAclBundle\Entity\Access;
+use Programarivm\EasyAclBundle\Entity\Permission;
 use Programarivm\EasyAclBundle\Entity\Role;
 use Programarivm\EasyAclBundle\Entity\Route;
 use Symfony\Component\Console\Command\Command;
@@ -56,7 +56,7 @@ class SetupCommand extends Command
             return 0;
         }
 
-        $this->em->getRepository('EasyAclBundle:Access')->deleteAll();
+        $this->em->getRepository('EasyAclBundle:Permission')->deleteAll();
         $this->em->getRepository('EasyAclBundle:Role')->deleteAll();
         $this->em->getRepository('EasyAclBundle:Route')->deleteAll();
 
@@ -69,13 +69,13 @@ class SetupCommand extends Command
             );
         }
 
-        foreach ($this->easyAcl->getAccess() as $access) {
+        foreach ($this->easyAcl->getPermission() as $access) {
             $this->em->persist(
                 (new Role())->setName($access['role'])
             );
             foreach ($access['routes'] as $route) {
                 $this->em->persist(
-                    (new Access())
+                    (new Permission())
                         ->setRole($access['role'])
                         ->setRoute($route)
                 );

@@ -3,7 +3,7 @@
 namespace Programarivm\EasyAclBundle\Tests\DataFixtures;
 
 use Programarivm\EasyAclBundle\EasyAcl;
-use Programarivm\EasyAclBundle\Entity\Access;
+use Programarivm\EasyAclBundle\Entity\Permission;
 use Programarivm\EasyAclBundle\Entity\Role;
 use Programarivm\EasyAclBundle\Entity\Route;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -40,7 +40,7 @@ class EasyAclFixturesTest extends WebTestCase
 
     public static function tearDownAfterClass()
     {
-        self::$em->getRepository('EasyAclBundle:Access')->deleteAll();
+        self::$em->getRepository('EasyAclBundle:Permission')->deleteAll();
         self::$em->getRepository('EasyAclBundle:Role')->deleteAll();
         self::$em->getRepository('EasyAclBundle:Route')->deleteAll();
     }
@@ -59,13 +59,13 @@ class EasyAclFixturesTest extends WebTestCase
             );
         }
 
-        foreach (self::$easyAcl->getAccess() as $access) {
+        foreach (self::$easyAcl->getPermission() as $access) {
             self::$em->persist(
                 (new Role())->setName($access['role'])
             );
             foreach ($access['routes'] as $route) {
                 self::$em->persist(
-                    (new Access())
+                    (new Permission())
                         ->setRole($access['role'])
                         ->setRoute($route)
                 );
@@ -87,7 +87,7 @@ class EasyAclFixturesTest extends WebTestCase
      */
     public function is_not_allowed()
     {
-        $isAllowed = self::$em->getRepository('EasyAclBundle:Access')->isAllowed('foo', 'bar');
+        $isAllowed = self::$em->getRepository('EasyAclBundle:Permission')->isAllowed('foo', 'bar');
 
         $this->assertFalse($isAllowed);
     }
@@ -98,7 +98,7 @@ class EasyAclFixturesTest extends WebTestCase
      */
     public function is_allowed()
     {
-        $isAllowed = self::$em->getRepository('EasyAclBundle:Access')->isAllowed('Superadmin', 'api_post_show');
+        $isAllowed = self::$em->getRepository('EasyAclBundle:Permission')->isAllowed('Superadmin', 'api_post_show');
 
         $this->assertTrue($isAllowed);
     }

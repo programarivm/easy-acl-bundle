@@ -2,10 +2,10 @@
 
 namespace Programarivm\EasyAclBundle\Tests\Entity;
 
-use Programarivm\EasyAclBundle\Entity\Access;
+use Programarivm\EasyAclBundle\Entity\Permission;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class AccessTest extends WebTestCase
+class PermissionTest extends WebTestCase
 {
     /**
      * @dataProvider sampleData
@@ -13,7 +13,7 @@ class AccessTest extends WebTestCase
      */
     public function setters_and_getters($role, $route)
     {
-        $access = (new Access())
+        $access = (new Permission())
                     ->setRole($role)
                     ->setRoute($route);
 

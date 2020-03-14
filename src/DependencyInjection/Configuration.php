@@ -14,7 +14,7 @@ class Configuration implements ConfigurationInterface
         $treeBuilder
             ->getRootNode()
                 ->children()
-                    ->arrayNode('access')
+                    ->arrayNode('permission')
                         ->arrayPrototype()
                             ->children()
                                 ->scalarNode('role')->end()
