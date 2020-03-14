@@ -26,4 +26,28 @@ class ToBe
      * @ORM\ManyToOne(targetEntity="Programarivm\EasyAclBundle\Entity\Role")
      */
     private $role;
+
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function setUser($user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    public function setRole($role): self
+    {
+        $this->role = $role;
+
+        return $this;
+    }
 }
