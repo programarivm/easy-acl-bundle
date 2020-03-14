@@ -2,6 +2,7 @@
 
 namespace Programarivm\EasyAclBundle\Tests\DataFixtures;
 
+use App\Entity\User;
 use Programarivm\EasyAclBundle\EasyAcl;
 use Programarivm\EasyAclBundle\Entity\Permission;
 use Programarivm\EasyAclBundle\Entity\Role;
@@ -17,17 +18,12 @@ class EasyAclFixturesTest extends WebTestCase
 
     private static $routes;
 
-    public function __construct()
+    public static function setUpBeforeClass()
     {
         if ($_ENV['APP_ENV'] !== 'test') {
             throw new \DomainException('Whoops! The data fixtures can only be loaded in a testing environment.');
         }
 
-        parent::__construct();
-    }
-
-    public static function setUpBeforeClass()
-    {
         $kernel = static::createKernel();
         $kernel->boot();
 
@@ -43,12 +39,37 @@ class EasyAclFixturesTest extends WebTestCase
         self::$em->getRepository('EasyAclBundle:Permission')->deleteAll();
         self::$em->getRepository('EasyAclBundle:Role')->deleteAll();
         self::$em->getRepository('EasyAclBundle:Route')->deleteAll();
+
+        self::$em->getRepository('App:User')->deleteAll();
+    }
+
+    /**
+     * @dataProvider userData
+     * @test
+     */
+    public function load_user($username, $email, $password)
+    {
+        self::$em->persist(
+            (new User())
+                ->setUsername($username)
+                ->setEmail($email)
+                ->setPassword($password)
+        );
+
+        try {
+            self::$em->flush();
+        } catch (\Exception $e) {
+            $this->assertTrue(false);
+        }
+
+        $this->assertTrue(true);
     }
 
     /**
      * @test
+     * @depends load_user
      */
-    public function load()
+    public function load_easy_acl()
     {
         foreach (self::$routes as $name => $item) {
             self::$em->persist(
@@ -83,7 +104,7 @@ class EasyAclFixturesTest extends WebTestCase
 
     /**
      * @test
-     * @depends load
+     * @depends load_easy_acl
      */
     public function is_not_allowed()
     {
@@ -94,12 +115,20 @@ class EasyAclFixturesTest extends WebTestCase
 
     /**
      * @test
-     * @depends load
+     * @depends load_easy_acl
      */
     public function is_allowed()
     {
         $isAllowed = self::$em->getRepository('EasyAclBundle:Permission')->isAllowed('Superadmin', 'api_post_show');
 
         $this->assertTrue($isAllowed);
+    }
+
+    public function userData()
+    {
+        return [
+            ['alice', 'alice@foo.bar', 'password'],
+            ['bob', 'bob@foo.bar', 'password'],
+        ];
     }
 }
