@@ -134,20 +134,6 @@ class EasyAclFixturesTest extends WebTestCase
 
     /**
      * @test
-     * @depends load_identity
-     */
-    public function identity_find()
-    {
-        $user = self::$em->getRepository('App:User')->findOneBy(['username' => 'alice']);
-        $identity = self::$em->getRepository('EasyAclBundle:Identity')->findBy(['user' => $user]);
-
-        // TODO
-
-        $this->assertTrue(true);
-    }
-
-    /**
-     * @test
      * @depends load_permission
      */
     public function permission_is_not_allowed()
@@ -166,6 +152,24 @@ class EasyAclFixturesTest extends WebTestCase
         $isAllowed = self::$em->getRepository('EasyAclBundle:Permission')->isAllowed('Superadmin', 'api_post_show');
 
         $this->assertTrue($isAllowed);
+    }
+
+    /**
+     * @test
+     * @depends load_identity
+     */
+    public function permission_identities()
+    {
+        $user = self::$em->getRepository('App:User')->findOneBy(['username' => 'alice']);
+        $identities = self::$em->getRepository('EasyAclBundle:Identity')->findBy(['user' => $user]);
+
+        foreach ($identities as $identity) {
+            $isAllowed = self::$em->getRepository('EasyAclBundle:Permission')->isAllowed(
+                $identity->getRole()->getName(),
+                'api_post_show'
+            );
+            $this->assertTrue($isAllowed);
+        }
     }
 
     public function userData()
