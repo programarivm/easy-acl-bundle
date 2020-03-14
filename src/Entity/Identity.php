@@ -5,10 +5,10 @@ namespace Programarivm\EasyAclBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="Programarivm\EasyAclBundle\Repository\ToBeRepository")
- * @ORM\Table(name="easy_acl_to_be")
+ * @ORM\Entity(repositoryClass="Programarivm\EasyAclBundle\Repository\IdentityRepository")
+ * @ORM\Table(name="easy_acl_identity")
  */
-class ToBe
+class Identity
 {
     /**
      * @ORM\Id()

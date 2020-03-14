@@ -4,10 +4,10 @@ namespace Programarivm\EasyAclBundle\Tests\DataFixtures;
 
 use App\Entity\User;
 use Programarivm\EasyAclBundle\EasyAcl;
+use Programarivm\EasyAclBundle\Entity\Identity;
 use Programarivm\EasyAclBundle\Entity\Permission;
 use Programarivm\EasyAclBundle\Entity\Role;
 use Programarivm\EasyAclBundle\Entity\Route;
-use Programarivm\EasyAclBundle\Entity\ToBe;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Yaml\Yaml;
 
@@ -37,7 +37,7 @@ class EasyAclFixturesTest extends WebTestCase
 
     public static function tearDownAfterClass()
     {
-        self::$em->getRepository('EasyAclBundle:ToBe')->deleteAll();
+        self::$em->getRepository('EasyAclBundle:Identity')->deleteAll();
         self::$em->getRepository('EasyAclBundle:Permission')->deleteAll();
         self::$em->getRepository('EasyAclBundle:Role')->deleteAll();
         self::$em->getRepository('EasyAclBundle:Route')->deleteAll();
@@ -108,7 +108,7 @@ class EasyAclFixturesTest extends WebTestCase
      * @test
      * @depends load_permission
      */
-    public function load_to_be()
+    public function load_identity()
     {
         $users = self::$em->getRepository('App:User')->findAll();
         $roles = self::$em->getRepository('EasyAclBundle:Role')->findAll();
@@ -116,7 +116,7 @@ class EasyAclFixturesTest extends WebTestCase
         foreach ($users as $user) {
             foreach ($roles as $role) {
                 self::$em->persist(
-                    (new ToBe())
+                    (new Identity())
                         ->setUser($user)
                         ->setRole($role)
                 );
@@ -134,7 +134,21 @@ class EasyAclFixturesTest extends WebTestCase
 
     /**
      * @test
-     * @depends load_to_be
+     * @depends load_identity
+     */
+    public function identity_find()
+    {
+        $user = self::$em->getRepository('App:User')->findOneBy(['username' => 'alice']);
+        $identity = self::$em->getRepository('EasyAclBundle:Identity')->findBy(['user' => $user]);
+
+        // TODO
+
+        $this->assertTrue(true);
+    }
+
+    /**
+     * @test
+     * @depends load_permission
      */
     public function permission_is_not_allowed()
     {
@@ -145,27 +159,13 @@ class EasyAclFixturesTest extends WebTestCase
 
     /**
      * @test
-     * @depends load_to_be
+     * @depends load_permission
      */
     public function permission_is_allowed()
     {
         $isAllowed = self::$em->getRepository('EasyAclBundle:Permission')->isAllowed('Superadmin', 'api_post_show');
 
         $this->assertTrue($isAllowed);
-    }
-
-    /**
-     * @test
-     * @depends load_to_be
-     */
-    public function to_be_find()
-    {
-        $user = self::$em->getRepository('App:User')->findOneBy(['username' => 'alice']);
-        $toBe = self::$em->getRepository('EasyAclBundle:ToBe')->findBy(['user' => $user]);
-
-        // TODO
-
-        $this->assertTrue(true);
     }
 
     public function userData()

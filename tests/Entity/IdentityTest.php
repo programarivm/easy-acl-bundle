@@ -3,11 +3,11 @@
 namespace Programarivm\EasyAclBundle\Tests\Entity;
 
 use App\Entity\User;
-use Programarivm\EasyAclBundle\Entity\ToBe;
+use Programarivm\EasyAclBundle\Entity\Identity;
 use Programarivm\EasyAclBundle\Entity\Role;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class ToBeTest extends WebTestCase
+class IdentityTest extends WebTestCase
 {
     /**
      * @dataProvider sampleData
@@ -23,7 +23,7 @@ class ToBeTest extends WebTestCase
         $role = (new Role())
                     ->setName($roleData);
 
-        $toBe = (new ToBe())
+        $identity = (new Identity())
                     ->setUser($user)
                     ->setRole($role);
 
@@ -34,11 +34,11 @@ class ToBeTest extends WebTestCase
 
         $actual = [
             [
-                $toBe->getUser()->getUsername(),
-                $toBe->getUser()->getEmail(),
-                $toBe->getUser()->getPassword(),
+                $identity->getUser()->getUsername(),
+                $identity->getUser()->getEmail(),
+                $identity->getUser()->getPassword(),
             ],
-                $toBe->getRole()->getName(),
+                $identity->getRole()->getName(),
         ];
 
         $this->assertEquals($expected, $actual);
