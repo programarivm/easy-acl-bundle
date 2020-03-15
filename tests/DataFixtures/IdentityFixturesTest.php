@@ -10,7 +10,7 @@ class IdentityFixturesTest extends DataFixturesTestCase
     /**
      * @test
      * @doesNotPerformAssertions
-     * @dataProvider sampleData
+     * @dataProvider loadData
      */
     public function load($username, $rolename)
     {
@@ -26,7 +26,7 @@ class IdentityFixturesTest extends DataFixturesTestCase
         self::$em->flush();
     }
 
-    public function sampleData()
+    public function loadData()
     {
         return [
             ['alice', 'Superadmin'],

@@ -8,40 +8,46 @@ class PermissionTest extends RepositoryTestCase
 {
     /**
      * @test
+     * @dataProvider isAllowedData
      */
-    public function is_not_allowed()
+    public function is_allowed($rolename, $routename)
     {
-        $isAllowed = self::$em->getRepository('EasyAclBundle:Permission')->isAllowed('foo', 'bar');
-
-        $this->assertFalse($isAllowed);
-    }
-
-    /**
-     * @test
-     */
-    public function is_allowed()
-    {
-        $isAllowed = self::$em->getRepository('EasyAclBundle:Permission')->isAllowed('Superadmin', 'api_post_show');
+        $isAllowed = self::$em
+                        ->getRepository('EasyAclBundle:Permission')
+                        ->isAllowed('Superadmin', 'api_post_show');
 
         $this->assertTrue($isAllowed);
     }
 
     /**
      * @test
+     * @dataProvider isNotAllowedData
      */
-    public function identities()
+    public function is_not_allowed($rolename, $routename)
     {
-        $users = self::$em->getRepository('App:User')->findAll();
-        $identities = self::$em->getRepository('EasyAclBundle:Identity')->findAll();
+        $isAllowed = self::$em
+                        ->getRepository('EasyAclBundle:Permission')
+                        ->isAllowed($rolename, $routename);
 
-        foreach ($users as $user) {
-            foreach ($identities as $identity) {
-                $isAllowed = self::$em->getRepository('EasyAclBundle:Permission')->isAllowed(
-                    $identity->getRole()->getName(),
-                    'api_post_show'
-                );
-                $this->assertTrue($isAllowed);
-            }
-        }
+        $this->assertFalse($isAllowed);
+    }
+
+    public function isAllowedData()
+    {
+        return [
+            ['Superadmin', 'api_post_show'],
+            ['Superadmin', 'api_post_edit'],
+            ['Admin', 'api_post_edit'],
+            ['Admin', 'api_post_edit'],
+            ['Basic', 'api_post_show'],
+        ];
+    }
+
+    public function isNotAllowedData()
+    {
+        return [
+            ['foo', 'bar'],
+            ['foobar', 'foo'],
+        ];
     }
 }
