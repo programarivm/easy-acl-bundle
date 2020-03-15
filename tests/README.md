@@ -1,0 +1,116 @@
+# Testing the Bundle
+
+`EasyAclBundle` has been tested within the context of [`Zebra`](https://github.com/programarivm/zebra), which is a Symfony application behaving as a host in order to develop and test vendor bundles.
+
+## Host Configuration
+
+### `config/routes.yaml`
+
+```yaml
+api_post_show:
+    path:       /api/posts/{id}
+    controller: App\Controller\BlogApiController::show
+    methods:    GET|HEAD
+
+api_post_edit:
+    path:       /api/posts/{id}
+    controller: App\Controller\BlogApiController::edit
+    methods:    PUT
+```
+
+### `config/packages/programarivm_easy_acl.yaml`
+
+```yaml
+programarivm_easy_acl:
+  permission:
+    -
+      role: Superadmin
+      routes:
+        - api_post_show
+        - api_post_edit
+    -
+      role: Admin
+      routes:
+        - api_post_show
+        - api_post_edit
+    -
+      role: Basic
+      routes:
+        - api_post_show
+```
+
+### `config/services.yaml`
+
+```yaml
+services:
+    Programarivm\EasyAclBundle\Command\SetupCommand:
+        arguments:
+            $projectDir: '%kernel.project_dir%'
+        tags: ['console.command']
+
+    Programarivm\EasyAclBundle\Repository\:
+        resource: '../vendor/programarivm/easy-acl-bundle/src/Repository'
+        autowire: true
+        tags: ['doctrine.repository_service']
+```
+
+### `phpunit.xml.dist`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="bin/.phpunit/phpunit.xsd"
+         backupGlobals="false"
+         colors="true"
+         bootstrap="config/bootstrap.php"
+>
+    <php>
+        <ini name="error_reporting" value="-1" />
+        <server name="APP_ENV" value="test" force="true" />
+        <server name="SHELL_VERBOSITY" value="-1" />
+        <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
+        <server name="SYMFONY_PHPUNIT_VERSION" value="7.5" />
+    </php>
+
+    <testsuites>
+        <testsuite name="Zebra">
+            <directory>tests</directory>
+        </testsuite>
+        <testsuite name="Programarivm\EasyAclBundle\Tests\DataFixtures">
+            <file>vendor/programarivm/easy-acl-bundle/tests/DataFixtures/Config/RouteFixturesTest.php</file>
+            <file>vendor/programarivm/easy-acl-bundle/tests/DataFixtures/Config/RoleFixturesTest.php</file>
+            <file>vendor/programarivm/easy-acl-bundle/tests/DataFixtures/Config/PermissionFixturesTest.php</file>
+            <file>vendor/programarivm/easy-acl-bundle/tests/DataFixtures/IdentityFixturesTest.php</file>
+        </testsuite>
+        <testsuite name="Programarivm\EasyAclBundle\Tests\Repository">
+            <file>vendor/programarivm/easy-acl-bundle/tests/Repository/PermissionTest.php</file>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
+        </whitelist>
+    </filter>
+
+    <listeners>
+        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
+    </listeners>
+</phpunit>
+```
+
+## Run the Tests
+
+With the configuration files above up and running, update the testing database schema:
+
+    docker exec -itu 1000:1000 zebra_php_fpm php bin/console doctrine:schema:update --force
+
+Load the fixtures:
+
+    docker exec -itu 1000:1000 zebra_php_fpm php bin/console doctrine:fixtures:load --group=zebra
+
+Run the tests:
+
+    docker exec -it zebra_php_fpm php bin/phpunit
