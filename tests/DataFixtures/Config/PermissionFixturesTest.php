@@ -1,8 +1,9 @@
 <?php
 
-namespace Programarivm\EasyAclBundle\Tests\DataFixtures;
+namespace Programarivm\EasyAclBundle\Tests\DataFixtures\Config;
 
 use Programarivm\EasyAclBundle\Entity\Permission;
+use Programarivm\EasyAclBundle\Tests\DataFixturesTestCase;
 
 class PermissionFixturesTest extends DataFixturesTestCase
 {

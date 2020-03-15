@@ -1,8 +1,9 @@
 <?php
 
-namespace Programarivm\EasyAclBundle\Tests\DataFixtures;
+namespace Programarivm\EasyAclBundle\Tests\DataFixtures\Config;
 
 use Programarivm\EasyAclBundle\Entity\Route;
+use Programarivm\EasyAclBundle\Tests\DataFixturesTestCase;
 
 class RouteFixturesTest extends DataFixturesTestCase
 {

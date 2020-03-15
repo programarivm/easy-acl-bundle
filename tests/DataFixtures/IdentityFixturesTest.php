@@ -3,6 +3,7 @@
 namespace Programarivm\EasyAclBundle\Tests\DataFixtures;
 
 use Programarivm\EasyAclBundle\Entity\Identity;
+use Programarivm\EasyAclBundle\Tests\DataFixturesTestCase;
 
 class IdentityFixturesTest extends DataFixturesTestCase
 {

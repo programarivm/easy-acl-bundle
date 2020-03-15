@@ -1,6 +1,6 @@
 <?php
 
-namespace Programarivm\EasyAclBundle\Tests\Repository;
+namespace Programarivm\EasyAclBundle\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

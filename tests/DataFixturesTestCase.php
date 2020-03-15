@@ -1,6 +1,6 @@
 <?php
 
-namespace Programarivm\EasyAclBundle\Tests\DataFixtures;
+namespace Programarivm\EasyAclBundle\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Yaml\Yaml;

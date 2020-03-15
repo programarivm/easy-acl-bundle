@@ -2,6 +2,8 @@
 
 namespace Programarivm\EasyAclBundle\Tests\Repository;
 
+use Programarivm\EasyAclBundle\Tests\RepositoryTestCase;
+
 class PermissionTest extends RepositoryTestCase
 {
     /**
@@ -17,7 +19,7 @@ class PermissionTest extends RepositoryTestCase
     /**
      * @test
      */
-    public function permission_is_allowed()
+    public function is_allowed()
     {
         $isAllowed = self::$em->getRepository('EasyAclBundle:Permission')->isAllowed('Superadmin', 'api_post_show');
 
