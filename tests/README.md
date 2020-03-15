@@ -78,6 +78,9 @@ services:
         <testsuite name="Zebra">
             <directory>tests</directory>
         </testsuite>
+        <testsuite name="Programarivm\EasyAclBundle\Tests\Entity">
+            <directory>vendor/programarivm/easy-acl-bundle/tests/Entity</directory>
+        </testsuite>
         <testsuite name="Programarivm\EasyAclBundle\Tests\DataFixtures">
             <file>vendor/programarivm/easy-acl-bundle/tests/DataFixtures/Config/RouteFixturesTest.php</file>
             <file>vendor/programarivm/easy-acl-bundle/tests/DataFixtures/Config/RoleFixturesTest.php</file>
@@ -86,6 +89,7 @@ services:
         </testsuite>
         <testsuite name="Programarivm\EasyAclBundle\Tests\Repository">
             <file>vendor/programarivm/easy-acl-bundle/tests/Repository/PermissionTest.php</file>
+            <file>vendor/programarivm/easy-acl-bundle/tests/Repository/IdentityTest.php</file>
         </testsuite>
     </testsuites>
 
