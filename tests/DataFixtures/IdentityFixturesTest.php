@@ -10,22 +10,27 @@ class IdentityFixturesTest extends DataFixturesTestCase
     /**
      * @test
      * @doesNotPerformAssertions
+     * @dataProvider sampleData
      */
-    public function load()
+    public function load($username, $rolename)
     {
-        $users = self::$em->getRepository('App:User')->findAll();
-        $roles = self::$em->getRepository('EasyAclBundle:Role')->findAll();
+        $user = self::$em->getRepository('App:User')->findOneBy(['username' => $username]);
+        $role = self::$em->getRepository('EasyAclBundle:Role')->findOneBy(['name' => $rolename]);
 
-        foreach ($users as $user) {
-            foreach ($roles as $role) {
-                self::$em->persist(
-                    (new Identity())
-                        ->setUser($user)
-                        ->setRole($role)
-                );
-            }
-        }
+        self::$em->persist(
+            (new Identity())
+                ->setUser($user)
+                ->setRole($role)
+        );
 
         self::$em->flush();
+    }
+
+    public function sampleData()
+    {
+        return [
+            ['alice', 'Superadmin'],
+            ['bob', 'Admin'],
+        ];
     }
 }
