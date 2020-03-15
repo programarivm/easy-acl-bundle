@@ -17,8 +17,8 @@ class PermissionFixturesTest extends DataFixturesTestCase
             foreach ($access['routes'] as $route) {
                 self::$em->persist(
                     (new Permission())
-                        ->setRole($access['role'])
-                        ->setRoute($route)
+                        ->setRolename($access['role'])
+                        ->setRoutename($route)
                 );
             }
         }

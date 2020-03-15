@@ -13,16 +13,16 @@ class PermissionRepository extends ServiceEntityRepository
         parent::__construct($registry, Permission::class);
     }
 
-    public function isAllowed(string $role, string $route): ?bool
+    public function isAllowed(string $rolename, string $routename): ?bool
     {
-        $qb = $this->createQueryBuilder('a');
+        $qb = $this->createQueryBuilder('p');
 
         return (bool) $qb
-            ->where('a.role = :role')
-            ->andWhere('a.route = :route')
+            ->where('p.rolename = :rolename')
+            ->andWhere('p.routename = :routename')
             ->setParameters([
-                'role' => $role,
-                'route' => $route,
+                'rolename' => $rolename,
+                'routename' => $routename,
             ])
             ->getQuery()
             ->getOneOrNullResult()

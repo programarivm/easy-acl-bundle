@@ -20,38 +20,38 @@ class Permission
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $role;
+    private $rolename;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $route;
+    private $routename;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getRole(): ?string
+    public function getRolename(): ?string
     {
-        return $this->role;
+        return $this->rolename;
     }
 
-    public function setRole(string $role): self
+    public function setRolename(string $rolename): self
     {
-        $this->role = $role;
+        $this->rolename = $rolename;
 
         return $this;
     }
 
-    public function getRoute(): ?string
+    public function getRoutename(): ?string
     {
-        return $this->route;
+        return $this->routename;
     }
 
-    public function setRoute(string $route): self
+    public function setRoutename(string $routename): self
     {
-        $this->route = $route;
+        $this->routename = $routename;
 
         return $this;
     }
