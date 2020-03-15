@@ -9,6 +9,7 @@ class IdentityFixturesTest extends DataFixturesTestCase
 {
     /**
      * @test
+     * @doesNotPerformAssertions
      */
     public function load()
     {
@@ -25,12 +26,6 @@ class IdentityFixturesTest extends DataFixturesTestCase
             }
         }
 
-        try {
-            self::$em->flush();
-        } catch (\Exception $e) {
-            $this->assertTrue(false);
-        }
-
-        $this->assertTrue(true);
+        self::$em->flush();
     }
 }

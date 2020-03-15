@@ -9,6 +9,7 @@ class RoleFixturesTest extends DataFixturesTestCase
 {
     /**
      * @test
+     * @doesNotPerformAssertions
      */
     public function load()
     {
@@ -18,12 +19,6 @@ class RoleFixturesTest extends DataFixturesTestCase
             );
         }
 
-        try {
-            self::$em->flush();
-        } catch (\Exception $e) {
-            $this->assertTrue(false);
-        }
-
-        $this->assertTrue(true);
+        self::$em->flush();
     }
 }
