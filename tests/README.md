@@ -1,6 +1,6 @@
 # Testing the Bundle
 
-`EasyAclBundle` has been tested within the context of [`Zebra`](https://github.com/programarivm/zebra), which is a Symfony application behaving as a host in order to develop and test vendor bundles.
+`EasyAclBundle` has been tested within the context of [`Zebra`](https://github.com/programarivm/zebra), which is a Symfony application behaving as a testing host in order to develop and test vendor bundles.
 
 ## Host Configuration
 
@@ -101,16 +101,21 @@ services:
 </phpunit>
 ```
 
-## Run the Tests
-
 With the configuration files above up and running, update the testing database schema:
 
     docker exec -itu 1000:1000 zebra_php_fpm php bin/console doctrine:schema:update --force
 
-Load the fixtures:
+Then load the host fixtures:
 
     docker exec -itu 1000:1000 zebra_php_fpm php bin/console doctrine:fixtures:load --group=zebra
 
-Run the tests:
+     Careful, database "zebra" will be purged. Do you want to continue? (yes/no) [no]:
+     > y
+
+       > purging database
+       > loading App\DataFixtures\UserFixtures
+       > loading App\DataFixtures\AddressFixtures
+
+And finally run the `EasyAclBundle` tests:
 
     docker exec -it zebra_php_fpm php bin/phpunit
