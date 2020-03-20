@@ -18,7 +18,9 @@ class Identity
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * To be dynamically set up.
+     *
+     * @see Programarivm\EasyAclBundle\EventListener\IdentitySubscriber
      */
     private $user;
 

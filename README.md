@@ -49,6 +49,9 @@ services:
         resource: '../vendor/programarivm/easy-acl-bundle/src/Repository'
         autowire: true
         tags: ['doctrine.repository_service']
+
+    Programarivm\EasyAclBundle\EventListener\IdentitySubscriber:
+        tags: ['doctrine.event_subscriber']
 ```
 
 Update your database schema:
