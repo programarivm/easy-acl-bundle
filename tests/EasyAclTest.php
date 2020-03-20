@@ -21,6 +21,16 @@ class EasyAclTest extends WebTestCase
     /**
      * @test
      */
+    public function get_target()
+    {
+        $this->assertEquals(self::$easyAcl->getTarget(), [
+            'App\Entity\User',
+        ]);
+    }
+
+    /**
+     * @test
+     */
     public function get_roles()
     {
         $this->assertEquals(self::$easyAcl->getRoles(), [

@@ -14,6 +14,7 @@ class Configuration implements ConfigurationInterface
         $treeBuilder
             ->getRootNode()
                 ->children()
+                    ->scalarNode('target')->defaultValue('App\Entity\User')->end()
                     ->arrayNode('permission')
                         ->arrayPrototype()
                             ->children()

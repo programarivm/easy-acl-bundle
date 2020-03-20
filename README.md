@@ -20,6 +20,7 @@ api_post_edit:
 ```yaml
 # config/packages/programarivm_easy_acl.yaml
 programarivm_easy_acl:
+  target: App\Entity\User
   permission:
     -
       role: Superadmin

@@ -6,27 +6,35 @@ class EasyAcl
 {
     private $providers;
 
+    private $target;
+
+    private $permission;
+
     private $roles;
 
-    private $access;
-
-    public function __construct(array $providers, array $access = [])
+    public function __construct(array $providers, string $target, array $permission = [])
     {
         $this->providers = $providers;
         $this->roles = [];
-        $this->access = $access;
-        foreach ($this->access as $item) {
+        $this->target = $target;
+        $this->permission = $permission;
+        foreach ($this->permission as $item) {
             $this->roles[] = $item['role'];
         }
+    }
+
+    public function getTarget()
+    {
+        return $this->target;
+    }
+
+    public function getPermission()
+    {
+        return $this->permission;
     }
 
     public function getRoles()
     {
         return $this->roles;
-    }
-
-    public function getPermission()
-    {
-        return $this->access;
     }
 }
