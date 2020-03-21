@@ -17,7 +17,7 @@ class PermissionRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('p');
 
-        return (bool) $qb
+        $result = $qb
             ->where('p.rolename = :rolename')
             ->andWhere('p.routename = :routename')
             ->setParameters([
@@ -25,8 +25,10 @@ class PermissionRepository extends ServiceEntityRepository
                 'routename' => $routename,
             ])
             ->getQuery()
-            ->getOneOrNullResult()
+            ->getResult()
         ;
+
+        return !empty($result);
     }
 
     public function deleteAll()
