@@ -5,9 +5,17 @@ namespace Programarivm\EasyAclBundle\EventListener;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\Common\Persistence\Event\LoadClassMetadataEventArgs;
 use Doctrine\ORM\Events;
+use Programarivm\EasyAclBundle\EasyAcl;
 
 class IdentitySubscriber implements EventSubscriber
 {
+    private $easyAcl;
+
+    public function __construct(EasyAcl $easyAcl)
+    {
+        $this->easyAcl = $easyAcl;
+    }
+
     public function getSubscribedEvents()
     {
         return [
@@ -31,10 +39,7 @@ class IdentitySubscriber implements EventSubscriber
 
          $metadata->mapManyToOne([
              'fieldName' => 'user',
-             'targetEntity' => 'App\Entity\User',
+             'targetEntity' => $this->easyAcl->getTarget(),
          ]);
-
-         // TODO
-         // Replace App\Entity\User with a custom entity 
     }
 }
