@@ -16,7 +16,7 @@ class EasyAclTestCase extends WebTestCase
     public static function setUpBeforeClass()
     {
         if ($_ENV['APP_ENV'] !== 'test') {
-            throw new \DomainException('Whoops! EasyAcl tests can only be loaded in a testing environment.');
+            throw new \DomainException('Whoops! EasyAcl tests can only run in a testing environment.');
         }
 
         $kernel = static::createKernel();

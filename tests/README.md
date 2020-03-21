@@ -79,7 +79,10 @@ services:
         <testsuite name="Zebra">
             <directory>tests</directory>
         </testsuite>
-        <testsuite name="EasyAcl">
+        <testsuite name="EasyAcl bootstrap">
+            <directory>vendor/programarivm/easy-acl-bundle/tests/BootstrapTest.php</directory>
+        </testsuite>
+        <testsuite name="EasyAcl test">
             <directory>vendor/programarivm/easy-acl-bundle/tests/EasyAclTest.php</directory>
         </testsuite>
         <testsuite name="EasyAcl fixtures">
