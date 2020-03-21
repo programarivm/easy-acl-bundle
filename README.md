@@ -1,6 +1,12 @@
-# Easy Access Control List (ACL) Bundle
+# EasyAcl Bundle
 
 `EasyAclBundle` is the easiest to use access control list (ACL) bundle.
+
+### Install
+
+Via composer:
+
+    $ composer require programarivm/easy-acl-bundle
 
 ### Configuration
 
