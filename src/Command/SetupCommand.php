@@ -56,6 +56,7 @@ class SetupCommand extends Command
             return 0;
         }
 
+        $this->em->getRepository('EasyAclBundle:Identity')->deleteAll();
         $this->em->getRepository('EasyAclBundle:Permission')->deleteAll();
         $this->em->getRepository('EasyAclBundle:Role')->deleteAll();
         $this->em->getRepository('EasyAclBundle:Route')->deleteAll();
@@ -76,8 +77,8 @@ class SetupCommand extends Command
             foreach ($access['routes'] as $route) {
                 $this->em->persist(
                     (new Permission())
-                        ->setRole($access['role'])
-                        ->setRoute($route)
+                        ->setRolename($access['role'])
+                        ->setRoutename($route)
                 );
             }
         }
