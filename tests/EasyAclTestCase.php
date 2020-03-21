@@ -5,7 +5,7 @@ namespace Programarivm\EasyAclBundle\Tests;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Yaml\Yaml;
 
-class DataFixturesTestCase extends WebTestCase
+class EasyAclTestCase extends WebTestCase
 {
     protected static $easyAcl;
 
@@ -16,7 +16,7 @@ class DataFixturesTestCase extends WebTestCase
     public static function setUpBeforeClass()
     {
         if ($_ENV['APP_ENV'] !== 'test') {
-            throw new \DomainException('Whoops! The data fixtures can only be loaded in a testing environment.');
+            throw new \DomainException('Whoops! EasyAcl tests can only be loaded in a testing environment.');
         }
 
         $kernel = static::createKernel();

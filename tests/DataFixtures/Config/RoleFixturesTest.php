@@ -3,9 +3,9 @@
 namespace Programarivm\EasyAclBundle\Tests\DataFixtures\Config;
 
 use Programarivm\EasyAclBundle\Entity\Role;
-use Programarivm\EasyAclBundle\Tests\DataFixturesTestCase;
+use Programarivm\EasyAclBundle\Tests\EasyAclTestCase;
 
-class RoleFixturesTest extends DataFixturesTestCase
+class RoleFixturesTest extends EasyAclTestCase
 {
     /**
      * @test

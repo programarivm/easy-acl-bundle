@@ -2,9 +2,9 @@
 
 namespace Programarivm\EasyAclBundle\Tests\Repository;
 
-use Programarivm\EasyAclBundle\Tests\RepositoryTestCase;
+use Programarivm\EasyAclBundle\Tests\EasyAclTestCase;
 
-class PermissionTest extends RepositoryTestCase
+class PermissionTest extends EasyAclTestCase
 {
     /**
      * @test

@@ -3,9 +3,9 @@
 namespace Programarivm\EasyAclBundle\Tests\DataFixtures\Config;
 
 use Programarivm\EasyAclBundle\Entity\Permission;
-use Programarivm\EasyAclBundle\Tests\DataFixturesTestCase;
+use Programarivm\EasyAclBundle\Tests\EasyAclTestCase;
 
-class PermissionFixturesTest extends DataFixturesTestCase
+class PermissionFixturesTest extends EasyAclTestCase
 {
     /**
      * @test

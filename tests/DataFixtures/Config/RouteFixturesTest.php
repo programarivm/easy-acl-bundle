@@ -3,9 +3,9 @@
 namespace Programarivm\EasyAclBundle\Tests\DataFixtures\Config;
 
 use Programarivm\EasyAclBundle\Entity\Route;
-use Programarivm\EasyAclBundle\Tests\DataFixturesTestCase;
+use Programarivm\EasyAclBundle\Tests\EasyAclTestCase;
 
-class RouteFixturesTest extends DataFixturesTestCase
+class RouteFixturesTest extends EasyAclTestCase
 {
     /**
      * @test

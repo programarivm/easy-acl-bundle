@@ -23,9 +23,7 @@ class EasyAclTest extends WebTestCase
      */
     public function get_target()
     {
-        $this->assertEquals(self::$easyAcl->getTarget(), [
-            'App\Entity\User',
-        ]);
+        $this->assertEquals(self::$easyAcl->getTarget(), 'App\Entity\User');
     }
 
     /**

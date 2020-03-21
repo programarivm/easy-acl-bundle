@@ -3,9 +3,9 @@
 namespace Programarivm\EasyAclBundle\Tests\DataFixtures;
 
 use Programarivm\EasyAclBundle\Entity\Identity;
-use Programarivm\EasyAclBundle\Tests\DataFixturesTestCase;
+use Programarivm\EasyAclBundle\Tests\EasyAclTestCase;
 
-class IdentityFixturesTest extends DataFixturesTestCase
+class IdentityFixturesTest extends EasyAclTestCase
 {
     /**
      * @test

@@ -22,6 +22,7 @@ api_post_edit:
 
 ```yaml
 programarivm_easy_acl:
+  target: App\Entity\User
   permission:
     -
       role: Superadmin
@@ -78,16 +79,16 @@ services:
         <testsuite name="Zebra">
             <directory>tests</directory>
         </testsuite>
-        <testsuite name="Programarivm\EasyAclBundle\Tests\Entity">
-            <directory>vendor/programarivm/easy-acl-bundle/tests/Entity</directory>
+        <testsuite name="EasyAcl">
+            <directory>vendor/programarivm/easy-acl-bundle/tests/EasyAclTest.php</directory>
         </testsuite>
-        <testsuite name="Programarivm\EasyAclBundle\Tests\DataFixtures">
+        <testsuite name="EasyAcl fixtures">
             <file>vendor/programarivm/easy-acl-bundle/tests/DataFixtures/Config/RouteFixturesTest.php</file>
             <file>vendor/programarivm/easy-acl-bundle/tests/DataFixtures/Config/RoleFixturesTest.php</file>
             <file>vendor/programarivm/easy-acl-bundle/tests/DataFixtures/Config/PermissionFixturesTest.php</file>
             <file>vendor/programarivm/easy-acl-bundle/tests/DataFixtures/IdentityFixturesTest.php</file>
         </testsuite>
-        <testsuite name="Programarivm\EasyAclBundle\Tests\Repository">
+        <testsuite name="EasyAcl repository">
             <file>vendor/programarivm/easy-acl-bundle/tests/Repository/PermissionTest.php</file>
             <file>vendor/programarivm/easy-acl-bundle/tests/Repository/IdentityTest.php</file>
         </testsuite>
