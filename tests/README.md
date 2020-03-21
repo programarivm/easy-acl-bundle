@@ -2,59 +2,6 @@
 
 `EasyAclBundle` has been tested within the context of [`Zebra`](https://github.com/programarivm/zebra), which is a Symfony application behaving as a testing host in order to develop and test vendor bundles.
 
-## Host Configuration
-
-### `config/routes.yaml`
-
-```yaml
-api_post_show:
-    path:       /api/posts/{id}
-    controller: App\Controller\BlogApiController::show
-    methods:    GET|HEAD
-
-api_post_edit:
-    path:       /api/posts/{id}
-    controller: App\Controller\BlogApiController::edit
-    methods:    PUT
-```
-
-### `config/packages/programarivm_easy_acl.yaml`
-
-```yaml
-programarivm_easy_acl:
-  target: App\Entity\User
-  permission:
-    -
-      role: Superadmin
-      routes:
-        - api_post_show
-        - api_post_edit
-    -
-      role: Admin
-      routes:
-        - api_post_show
-        - api_post_edit
-    -
-      role: Basic
-      routes:
-        - api_post_show
-```
-
-### `config/services.yaml`
-
-```yaml
-services:
-    Programarivm\EasyAclBundle\Command\SetupCommand:
-        arguments:
-            $projectDir: '%kernel.project_dir%'
-        tags: ['console.command']
-
-    Programarivm\EasyAclBundle\Repository\:
-        resource: '../vendor/programarivm/easy-acl-bundle/src/Repository'
-        autowire: true
-        tags: ['doctrine.repository_service']
-```
-
 ### `phpunit.xml.dist`
 
 ```xml
@@ -109,11 +56,7 @@ services:
 </phpunit>
 ```
 
-With the configuration files above up and running, update the testing database schema:
-
-    docker exec -itu 1000:1000 zebra_php_fpm php bin/console doctrine:schema:update --force
-
-Then load the host fixtures:
+Load the host fixtures:
 
     docker exec -itu 1000:1000 zebra_php_fpm php bin/console doctrine:fixtures:load --group=zebra
 
@@ -124,6 +67,6 @@ Then load the host fixtures:
        > loading App\DataFixtures\UserFixtures
        > loading App\DataFixtures\AddressFixtures
 
-And finally run the `EasyAclBundle` tests:
+Run the `EasyAclBundle` tests:
 
     docker exec -it zebra_php_fpm php bin/phpunit
