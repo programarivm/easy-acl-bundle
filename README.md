@@ -14,14 +14,19 @@ First things first, configure your application's `config/routes.yaml`.
 
 ```yaml
 # config/routes.yaml
-api_post_show:
+api_post_create:
+    path:       /api/posts
+    controller: App\Controller\Post\CreateController::index
+    methods:    POST
+
+api_post_delete:
     path:       /api/posts/{id}
-    controller: App\Controller\PostController::show
-    methods:    GET|HEAD
+    controller: App\Controller\Post\DeleteController::index
+    methods:    DELETE
 
 api_post_edit:
     path:       /api/posts/{id}
-    controller: App\Controller\PostController::edit
+    controller: App\Controller\Post\EditController::index
     methods:    PUT
 ```
 
@@ -35,17 +40,18 @@ programarivm_easy_acl:
     -
       role: Superadmin
       routes:
-        - api_post_show
+        - api_post_comment
+        - api_post_delete
         - api_post_edit
     -
       role: Admin
       routes:
-        - api_post_show
+        - api_post_comment
         - api_post_edit
     -
       role: Basic
       routes:
-        - api_post_show
+        - api_post_comment
 ```
 
 Update your `config/services.yaml` file.
@@ -105,16 +111,17 @@ MySQL console:
     Empty set (0.01 sec)
 
     mysql> select * from easy_acl_permission;
-    +----+------------+---------------+
-    | id | rolename   | routename     |
-    +----+------------+---------------+
-    |  1 | Superadmin | api_post_show |
-    |  2 | Superadmin | api_post_edit |
-    |  3 | Admin      | api_post_show |
-    |  4 | Admin      | api_post_edit |
-    |  5 | Basic      | api_post_show |
-    +----+------------+---------------+
-    5 rows in set (0.00 sec)
+    +----+------------+------------------+
+    | id | rolename   | routename        |
+    +----+------------+------------------+
+    |  1 | Superadmin | api_post_comment |
+    |  2 | Superadmin | api_post_delete  |
+    |  3 | Superadmin | api_post_edit    |
+    |  4 | Admin      | api_post_comment |
+    |  5 | Admin      | api_post_edit    |
+    |  6 | Basic      | api_post_comment |
+    +----+------------+------------------+
+    6 rows in set (0.00 sec)
 
     mysql> select * from easy_acl_role;
     +----+------------+
@@ -127,13 +134,14 @@ MySQL console:
     3 rows in set (0.00 sec)
 
     mysql> select * from easy_acl_route;
-    +----+---------------+----------+-----------------+
-    | id | name          | methods  | path            |
-    +----+---------------+----------+-----------------+
-    |  1 | api_post_show | GET|HEAD | /api/posts/{id} |
-    |  2 | api_post_edit | PUT      | /api/posts/{id} |
-    +----+---------------+----------+-----------------+
-    2 rows in set (0.00 sec)
+    +----+-----------------+---------+-----------------+
+    | id | name            | methods | path            |
+    +----+-----------------+---------+-----------------+
+    |  1 | api_post_create | POST    | /api/posts      |
+    |  2 | api_post_delete | DELETE  | /api/posts/{id} |
+    |  3 | api_post_edit   | PUT     | /api/posts/{id} |
+    +----+-----------------+---------+-----------------+
+    3 rows in set (0.00 sec)
 
 As you can see, three `EasyAcl` tables are populated with the data contained in `config/packages/programarivm_easy_acl.yaml`, however it is up to you to define your users' identities.
 

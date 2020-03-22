@@ -14,7 +14,7 @@ class PermissionTest extends EasyAclTestCase
     {
         $isAllowed = self::$em
                         ->getRepository('EasyAclBundle:Permission')
-                        ->isAllowed('Superadmin', 'api_post_show');
+                        ->isAllowed($rolename, $routename);
 
         $this->assertTrue($isAllowed);
     }
@@ -35,11 +35,12 @@ class PermissionTest extends EasyAclTestCase
     public function isAllowedData()
     {
         return [
-            ['Superadmin', 'api_post_show'],
+            ['Superadmin', 'api_post_comment'],
+            ['Superadmin', 'api_post_delete'],
             ['Superadmin', 'api_post_edit'],
+            ['Admin', 'api_post_comment'],
             ['Admin', 'api_post_edit'],
-            ['Admin', 'api_post_edit'],
-            ['Basic', 'api_post_show'],
+            ['Basic', 'api_post_comment'],
         ];
     }
 
