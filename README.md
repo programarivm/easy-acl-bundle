@@ -1,6 +1,6 @@
 # EasyAcl Bundle
 
-`EasyAclBundle` is the easiest to use access control list (ACL) bundle in Symfony apps.
+`EasyAclBundle` is the easiest to use access control list (ACL) bundle in Symfony 5.
 
 ### Install
 
@@ -78,12 +78,29 @@ This will create four empty tables in your database:
 - `easy_acl_role`
 - `easy_acl_route`
 
-### Load the ACL Data
+Which go hand in hand with the entities:
+
+- [`Programarivm\EasyAclBundle\Entity\Identity`](https://github.com/programarivm/easy-acl-bundle/blob/master/src/Entity/Identity.php)
+- [`Programarivm\EasyAclBundle\Entity\Permission`](https://github.com/programarivm/easy-acl-bundle/blob/master/src/Entity/Permission.php)
+- [`Programarivm\EasyAclBundle\Entity\Role`](https://github.com/programarivm/easy-acl-bundle/blob/master/src/Entity/Role.php)
+- [`Programarivm\EasyAclBundle\Entity\Route`](https://github.com/programarivm/easy-acl-bundle/blob/master/src/Entity/Route.php)
+
+And the repositories:
+
+- [`Programarivm\EasyAclBundle\Repository\IdentityRepository`](https://github.com/programarivm/easy-acl-bundle/blob/master/src/Repository/IdentityRepository.php)
+- [`Programarivm\EasyAclBundle\Repository\PermissionRepository`](https://github.com/programarivm/easy-acl-bundle/blob/master/src/Repository/PermissionRepository.php)
+- [`Programarivm\EasyAclBundle\Repository\RoleRepository`](https://github.com/programarivm/easy-acl-bundle/blob/master/src/Repository/RoleRepository.php)
+- [`Programarivm\EasyAclBundle\Repository\RouteRepository`](https://github.com/programarivm/easy-acl-bundle/blob/master/src/Repository/RouteRepository.php)
+
+### `easy-acl:setup` command
 
     php bin/console easy-acl:setup
     This will reset the ACL. Are you sure to continue? (y) y
 
-Three `EasyAcl` tables are populated with the data contained in `config/packages/programarivm_easy_acl.yaml`:
+This command will load the ACL data into your database.
+
+    mysql> select * from easy_acl_identity;
+    Empty set (0.01 sec)
 
     mysql> select * from easy_acl_permission;
     +----+------------+---------------+
@@ -116,7 +133,9 @@ Three `EasyAcl` tables are populated with the data contained in `config/packages
     +----+---------------+----------+-----------------+
     2 rows in set (0.00 sec)
 
-It is up to you to define your users' identities with the help of `Programarivm\EasyAclBundle\Entity\Identity` as in the following example:
+As you can see, three `EasyAcl` tables are populated with the data contained in `config/packages/programarivm_easy_acl.yaml`, however it is up to you to define your users' identities.
+
+Example:
 
 ```php
 use Programarivm\EasyAclBundle\Entity\Identity;
@@ -152,6 +171,111 @@ $isAllowed = $this->em
                 ->getRepository('EasyAclBundle:Permission')
                 ->isAllowed('Superadmin', 'api_post_show');
 ```
+
+### `EasyAcl` usage
+
+The bundle provides you with `Programarivm\EasyAclBundle\EasyAcl` which can be used in your application to access the bundle information in the YAML config file in a friendly, object-oriented way.
+
+Example:
+
+```php
+// src/DataFixtures/EasyAcl/RoleFixtures.php
+
+namespace App\DataFixtures\EasyAcl;
+
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
+use Doctrine\Common\Persistence\ObjectManager;
+use Programarivm\EasyAclBundle\EasyAcl;
+use Programarivm\EasyAclBundle\Entity\Role;
+
+class RoleFixtures extends Fixture implements FixtureGroupInterface
+{
+    private $easyAcl;
+
+    public function __construct(EasyAcl $easyAcl)
+    {
+        $this->easyAcl = $easyAcl;
+    }
+
+    public function load(ObjectManager $manager)
+    {
+        foreach ($this->easyAcl->getPermission() as $key => $permission) {
+            $role = (new Role())->setName($permission['role']);
+            $manager->persist($role);
+            $this->addReference("role-$key", $role);
+        }
+
+        $manager->flush();
+    }
+
+    public static function getGroups(): array
+    {
+        return [
+            'easy-acl',
+        ];
+    }
+}
+```
+
+Example:
+
+```php
+// src/DataFixtures/EasyAcl/IdentityFixtures.php
+
+namespace App\DataFixtures\EasyAcl;
+
+use App\DataFixtures\UserFixtures;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
+use Programarivm\EasyAclBundle\EasyAcl;
+use Programarivm\EasyAclBundle\Entity\Identity;
+
+class IdentityFixtures extends Fixture implements FixtureGroupInterface, DependentFixtureInterface
+{
+    private $easyAcl;
+
+    public function __construct(EasyAcl $easyAcl)
+    {
+        $this->easyAcl = $easyAcl;
+    }
+
+    public function load(ObjectManager $manager)
+    {
+        for ($i = 0; $i < UserFixtures::N; $i++) {
+            $index = rand(0, count($this->easyAcl->getPermission())-1);
+            $user = $this->getReference("user-$i");
+            $role = $this->getReference("role-$index");
+            $manager->persist(
+                (new Identity())
+                    ->setUser($user)
+                    ->setRole($role)
+            );
+        }
+
+        $manager->flush();
+    }
+
+    public static function getGroups(): array
+    {
+        return [
+            'easy-acl',
+        ];
+    }
+
+    public function getDependencies(): array
+    {
+        return [
+            RoleFixtures::class,
+            UserFixtures::class,
+        ];
+    }
+}
+```
+
+> For further details on how to use `EasyAclBundle` please visit [Zebra](https://github.com/programarivm/zebra/tree/master/src/DataFixtures), which is a Symfony application behaving as a host in order to develop and test Symfony 5 bundles.
 
 ### Contributions
 
