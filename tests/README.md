@@ -1,6 +1,6 @@
 # Testing the Bundle
 
-`EasyAclBundle` has been tested within the context of [`Zebra`](https://github.com/programarivm/zebra), which is a Symfony application behaving as a testing host in order to develop and test vendor bundles.
+`EasyAclBundle` has been tested within the context of [`Zebra`](https://github.com/programarivm/zebra), which is a host application to help develop and test Symfony bundles.
 
 ### `phpunit.xml.dist`
 

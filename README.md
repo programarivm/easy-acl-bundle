@@ -16,12 +16,12 @@ First things first, configure your application's `config/routes.yaml`.
 # config/routes.yaml
 api_post_show:
     path:       /api/posts/{id}
-    controller: App\Controller\BlogApiController::show
+    controller: App\Controller\PostController::show
     methods:    GET|HEAD
 
 api_post_edit:
     path:       /api/posts/{id}
-    controller: App\Controller\BlogApiController::edit
+    controller: App\Controller\PostController::edit
     methods:    PUT
 ```
 
@@ -275,7 +275,7 @@ class IdentityFixtures extends Fixture implements FixtureGroupInterface, Depende
 }
 ```
 
-> For further details on how to use `EasyAclBundle` please visit [Zebra](https://github.com/programarivm/zebra/tree/master/src/DataFixtures), which is a Symfony application behaving as a host in order to develop and test Symfony 5 bundles.
+> For further details on how to use `EasyAclBundle` please visit [Zebra](https://github.com/programarivm/zebra/tree/master/src/DataFixtures), which is a host application to help develop and test Symfony bundles.
 
 ### Contributions
 
