@@ -94,10 +94,12 @@ And the repositories:
 
 ### `easy-acl:setup` command
 
+Command line:
+
     php bin/console easy-acl:setup
     This will reset the ACL. Are you sure to continue? (y) y
 
-This command will load the ACL data into your database.
+MySQL console:
 
     mysql> select * from easy_acl_identity;
     Empty set (0.01 sec)
@@ -164,7 +166,7 @@ $this->em->flush();
     +----+---------+---------+
     1 row in set (0.00 sec)
 
-Finally, you are ready to determine whether or not a particular role can access a given resource:
+Finally, the permission repository helps you determine whether or not a particular role can access a given resource:
 
 ```php
 $isAllowed = $this->em
