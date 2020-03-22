@@ -1,6 +1,6 @@
 {
     "name": "programarivm/easy-acl-bundle",
-    "description": "Easy access control list (ACL) bundle",
+    "description": "Easy-to-use access control list (ACL) bundle in Symfony 5.",
     "type": "symfony-bundle",
     "license": "MIT",
     "authors": [
