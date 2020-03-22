@@ -1,6 +1,6 @@
 # EasyAcl Bundle
 
-`EasyAclBundle` is the easiest to use access control list (ACL) bundle in Symfony 5.
+Easy-to-use access control list (ACL) bundle in Symfony 5.
 
 ### Install
 
