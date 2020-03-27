@@ -43,10 +43,10 @@ class IdentityTest extends EasyAclTestCase
     public function isAllowedData()
     {
         return [
-            ['alice', 'api_post_comment'],
+            ['alice', 'api_post_create'],
             ['alice', 'api_post_delete'],
             ['alice', 'api_post_edit'],
-            ['bob', 'api_post_comment'],
+            ['bob', 'api_post_create'],
             ['bob', 'api_post_edit'],
         ];
     }

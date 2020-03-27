@@ -35,12 +35,12 @@ class PermissionTest extends EasyAclTestCase
     public function isAllowedData()
     {
         return [
-            ['Superadmin', 'api_post_comment'],
+            ['Superadmin', 'api_post_create'],
             ['Superadmin', 'api_post_delete'],
             ['Superadmin', 'api_post_edit'],
-            ['Admin', 'api_post_comment'],
+            ['Admin', 'api_post_create'],
             ['Admin', 'api_post_edit'],
-            ['Basic', 'api_post_comment'],
+            ['Basic', 'api_post_create'],
         ];
     }
 

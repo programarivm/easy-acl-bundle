@@ -40,18 +40,18 @@ programarivm_easy_acl:
     -
       role: Superadmin
       routes:
-        - api_post_comment
+        - api_post_create
         - api_post_delete
         - api_post_edit
     -
       role: Admin
       routes:
-        - api_post_comment
+        - api_post_create
         - api_post_edit
     -
       role: Basic
       routes:
-        - api_post_comment
+        - api_post_create
 ```
 
 Update your `config/services.yaml` file.
