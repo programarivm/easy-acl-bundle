@@ -185,7 +185,7 @@ $isAllowed = $this->em
 More specifically, the example below shows how a JWT token can be authorized in an [event subscriber](https://symfony.com/doc/current/event_dispatcher/before_after_filters.html#creating-an-event-subscriber):
 
 ```php
-<?php
+// src/EventSubscriber/TokenSubscriber.php
 
 namespace App\EventSubscriber;
 
