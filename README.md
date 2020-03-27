@@ -111,16 +111,16 @@ MySQL console:
     Empty set (0.01 sec)
 
     mysql> select * from easy_acl_permission;
-    +----+------------+------------------+
-    | id | rolename   | routename        |
-    +----+------------+------------------+
-    |  1 | Superadmin | api_post_comment |
-    |  2 | Superadmin | api_post_delete  |
-    |  3 | Superadmin | api_post_edit    |
-    |  4 | Admin      | api_post_comment |
-    |  5 | Admin      | api_post_edit    |
-    |  6 | Basic      | api_post_comment |
-    +----+------------+------------------+
+    +----+------------+-----------------+
+    | id | rolename   | routename       |
+    +----+------------+-----------------+
+    |  1 | Superadmin | api_post_create |
+    |  2 | Superadmin | api_post_delete |
+    |  3 | Superadmin | api_post_edit   |
+    |  4 | Admin      | api_post_create |
+    |  5 | Admin      | api_post_edit   |
+    |  6 | Basic      | api_post_create |
+    +----+------------+-----------------+
     6 rows in set (0.00 sec)
 
     mysql> select * from easy_acl_role;
