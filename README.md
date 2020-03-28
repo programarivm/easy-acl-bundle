@@ -10,7 +10,7 @@ Via composer:
 
 ### Configuration
 
-First things first, configure your application's `config/routes.yaml`.
+Configure your app's routes in `config/routes.yaml`.
 
 ```yaml
 # config/routes.yaml
@@ -30,7 +30,7 @@ api_post_edit:
     methods:    PUT
 ```
 
-Set up `EasyAclBundle` as in the example shown below.
+Set up permissions as in the example shown below.
 
 ```yaml
 # config/packages/programarivm_easy_acl.yaml
@@ -145,7 +145,7 @@ MySQL console:
 
 As you can see, three `EasyAcl` tables are populated with the data contained in `config/packages/programarivm_easy_acl.yaml`, however it is up to you to define your users' identities.
 
-Example:
+Example on how to set the `Superadmin` identity to `alice`:
 
 ```php
 use Programarivm\EasyAclBundle\Entity\Identity;
@@ -182,7 +182,7 @@ $isAllowed = $this->em
                 ->isAllowed('Superadmin', 'api_post_show');
 ```
 
-More specifically, the example below shows how a JWT token can be authorized in an [event subscriber](https://symfony.com/doc/current/event_dispatcher/before_after_filters.html#creating-an-event-subscriber):
+More specifically, the example below shows how a JWT token can be authorized in an [event subscriber](https://symfony.com/doc/current/event_dispatcher/before_after_filters.html#creating-an-event-subscriber) with the help of the permission repository.
 
 ```php
 // src/EventSubscriber/TokenSubscriber.php
